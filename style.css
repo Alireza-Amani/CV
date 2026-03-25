@@ -1,20 +1,9 @@
 :root {
-  /* Canvas */
   --bg-color: #ffffff;
-
-  /* The Ink: Midnight Blue (Softer on the eyes than pure black, highly professional) */
   --text-main: #0f172a;
-
-  /* Meta-data: Slate Gray (Pushes dates and locations to the background) */
   --text-muted: #475569;
-
-  /* The Signal: Ocean Tech Blue (Guides the saccadic eye movement to headers/links) */
   --accent: #0369a1;
-
-  /* Architecture: Soft Slate (For dividing lines, keeping them invisible until needed) */
   --border: #e2e8f0;
-
-  /* Typography */
   --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --font-serif: "Georgia", "Times New Roman", serif;
   --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
@@ -37,7 +26,6 @@ body {
   padding: 2rem;
 }
 
-/* Split Header */
 header {
   display: flex;
   justify-content: space-between;
@@ -69,12 +57,23 @@ h2 {
   color: var(--accent);
   font-style: italic;
   border-bottom: 1px solid var(--border);
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
   padding-bottom: 0.2rem;
 }
 
-.project {
+.skills-section {
   margin-bottom: 1.5rem;
+  font-size: 9pt;
+}
+.skills-section p {
+  margin-bottom: 0.25rem;
+}
+.skills-section strong {
+  color: var(--text-main);
+}
+
+.project {
+  margin-bottom: 1.25rem;
   page-break-inside: avoid;
 }
 .project h3 {
@@ -85,25 +84,18 @@ h2 {
 .meta {
   font-size: 8.5pt;
   color: var(--text-muted);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.4rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
-.meta span {
-  color: var(--accent);
-  font-weight: bold;
-}
 
-.par-list {
-  list-style: none;
+.bullet-list {
+  list-style-type: square;
+  padding-left: 1.2rem;
 }
-.par-list li {
-  margin-bottom: 0.4rem;
-  display: flex;
-}
-.par-list strong {
-  min-width: 65px;
-  color: var(--accent);
+.bullet-list li {
+  margin-bottom: 0.3rem;
+  color: var(--text-main);
 }
 
 .ext-link {
@@ -114,11 +106,10 @@ h2 {
   margin-left: 6px;
 }
 
-/* Footer */
 .footer {
   display: flex;
   gap: 4rem;
-  margin-top: 2rem;
+  margin-top: 1.5rem;
   border-top: 1px solid var(--border);
   padding-top: 1rem;
 }
@@ -133,7 +124,6 @@ h2 {
 }
 
 @media print {
-  /* 1. Force white background and black text for legibility */
   body {
     background: white !important;
     color: black !important;
@@ -141,37 +131,26 @@ h2 {
     padding: 0;
     width: 100%;
   }
-
-  /* 2. Remove web-only padding from the container */
   .resume-wrapper,
   body {
     padding: 0;
     max-width: 100%;
     box-shadow: none;
   }
-
-  /* 3. THE MAGIC: Prevent projects from splitting across pages */
-  .project-block,
   .project,
-  .par-card {
+  .skills-section {
     page-break-inside: avoid;
     break-inside: avoid;
-    margin-bottom: 1.5rem;
   }
-
-  /* 4. Hide things that don't belong on paper */
   .no-print,
-  .ext-link svg {
+  .ext-link svg,
+  .ext-link {
     display: none;
   }
-
-  /* 5. Ensure colors actually print (some browsers default to 'economy') */
   * {
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
   }
-
-  /* 6. Standardize the A4 margins */
   @page {
     size: A4;
     margin: 1.5cm;
