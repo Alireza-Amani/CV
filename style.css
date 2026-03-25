@@ -168,10 +168,10 @@ h2 {
     padding: 0;
     width: 100%;
   }
-  .no-print,
+  /* .no-print,
   .ext-link {
     display: none;
-  }
+  } */
   * {
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
@@ -180,4 +180,26 @@ h2 {
     size: A4;
     margin: 1.5cm;
   }
+}
+.project-footer {
+  margin-top: 0.25rem;
+  padding-left: 1rem;
+}
+
+.ext-link {
+  font-size: 8pt; /* Slightly smaller */
+  color: var(--text-muted); /* Muted gray by default */
+  text-decoration: none;
+  font-weight: 400; /* Normal weight */
+  transition: color 0.2s ease;
+}
+
+.ext-link:hover {
+  color: var(--accent); /* Only turns blue on hover */
+  text-decoration: underline;
+}
+
+/* Custom minimal bullet point for the links if you want it even more subtle */
+.project-footer a::before {
+  content: ""; /* Removed the arrow to keep it clean */
 }
