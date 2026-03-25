@@ -2,11 +2,10 @@
   --bg-color: #ffffff;
   --text-main: #0f172a;
   --text-muted: #475569;
-  --accent: #0369a1;
+  --accent: #0369a1; /* A sharp, professional blue */
   --border: #e2e8f0;
   --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --font-serif: "Georgia", "Times New Roman", serif;
-  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
 }
 
 * {
@@ -19,7 +18,7 @@ body {
   font-family: var(--font-sans);
   background-color: var(--bg-color);
   color: var(--text-main);
-  line-height: 1.45;
+  line-height: 1.5;
   font-size: 9.5pt;
   max-width: 21cm;
   margin: 0 auto;
@@ -30,30 +29,46 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  border-bottom: 3px solid var(--text-main);
-  padding-bottom: 0.5rem;
-  margin-bottom: 1.5rem;
+  border-bottom: 2px solid var(--text-main);
+  padding-bottom: 0.75rem;
+  margin-bottom: 1rem;
 }
+
 h1 {
   font-family: var(--font-serif);
-  font-size: 26pt;
-  font-weight: normal;
+  font-size: 24pt;
+  font-weight: 600;
   line-height: 1;
+  color: var(--text-main);
 }
+
 .contact-info {
   text-align: right;
   font-size: 8.5pt;
   color: var(--text-muted);
-  line-height: 1.6;
+  line-height: 1.5;
 }
+
 .contact-info a {
   color: var(--accent);
   text-decoration: none;
+  font-weight: 500;
+}
+
+/* New Profile Summary Styling */
+.profile-summary {
+  font-size: 10pt;
+  font-weight: 500;
+  color: var(--text-main);
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+  border-left: 3px solid var(--accent);
+  padding-left: 1rem;
 }
 
 h2 {
   font-family: var(--font-serif);
-  font-size: 14pt;
+  font-size: 13pt;
   color: var(--accent);
   font-style: italic;
   border-bottom: 1px solid var(--border);
@@ -63,11 +78,13 @@ h2 {
 
 .skills-section {
   margin-bottom: 1.5rem;
-  font-size: 9pt;
+  font-size: 9.5pt;
 }
+
 .skills-section p {
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.3rem;
 }
+
 .skills-section strong {
   color: var(--text-main);
 }
@@ -76,26 +93,42 @@ h2 {
   margin-bottom: 1.25rem;
   page-break-inside: avoid;
 }
+
 .project h3 {
   font-size: 11pt;
   font-weight: 600;
   margin-bottom: 0.1rem;
+  color: var(--text-main);
 }
+
 .meta {
   font-size: 8.5pt;
   color: var(--text-muted);
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.5rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  font-weight: 600;
 }
 
 .bullet-list {
-  list-style-type: square;
-  padding-left: 1.2rem;
+  list-style-type: none; /* Removing the square to look cleaner */
+  padding-left: 0;
 }
+
 .bullet-list li {
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.4rem;
   color: var(--text-main);
+  position: relative;
+  padding-left: 1rem;
+}
+
+/* Custom minimal bullet point */
+.bullet-list li::before {
+  content: "→";
+  color: var(--accent);
+  position: absolute;
+  left: 0;
+  font-weight: bold;
 }
 
 .ext-link {
@@ -104,23 +137,27 @@ h2 {
   text-transform: none;
   letter-spacing: 0;
   margin-left: 6px;
+  color: var(--text-muted);
 }
 
 .footer {
   display: flex;
   gap: 4rem;
-  margin-top: 1.5rem;
+  margin-top: 2rem;
   border-top: 1px solid var(--border);
-  padding-top: 1rem;
+  padding-top: 1.25rem;
 }
+
 .footer-col {
   flex: 1;
 }
+
 .footer-col h3 {
   font-size: 10pt;
   text-transform: uppercase;
   color: var(--text-muted);
   margin-bottom: 0.5rem;
+  letter-spacing: 0.5px;
 }
 
 @media print {
@@ -131,19 +168,7 @@ h2 {
     padding: 0;
     width: 100%;
   }
-  .resume-wrapper,
-  body {
-    padding: 0;
-    max-width: 100%;
-    box-shadow: none;
-  }
-  .project,
-  .skills-section {
-    page-break-inside: avoid;
-    break-inside: avoid;
-  }
   .no-print,
-  .ext-link svg,
   .ext-link {
     display: none;
   }
