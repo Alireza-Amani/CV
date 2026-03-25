@@ -1,0 +1,179 @@
+:root {
+  /* Canvas */
+  --bg-color: #ffffff;
+
+  /* The Ink: Midnight Blue (Softer on the eyes than pure black, highly professional) */
+  --text-main: #0f172a;
+
+  /* Meta-data: Slate Gray (Pushes dates and locations to the background) */
+  --text-muted: #475569;
+
+  /* The Signal: Ocean Tech Blue (Guides the saccadic eye movement to headers/links) */
+  --accent: #0369a1;
+
+  /* Architecture: Soft Slate (For dividing lines, keeping them invisible until needed) */
+  --border: #e2e8f0;
+
+  /* Typography */
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-serif: "Georgia", "Times New Roman", serif;
+  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  line-height: 1.45;
+  font-size: 9.5pt;
+  max-width: 21cm;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* Split Header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-bottom: 3px solid var(--text-main);
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+h1 {
+  font-family: var(--font-serif);
+  font-size: 26pt;
+  font-weight: normal;
+  line-height: 1;
+}
+.contact-info {
+  text-align: right;
+  font-size: 8.5pt;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+.contact-info a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+h2 {
+  font-family: var(--font-serif);
+  font-size: 14pt;
+  color: var(--accent);
+  font-style: italic;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 1rem;
+  padding-bottom: 0.2rem;
+}
+
+.project {
+  margin-bottom: 1.5rem;
+  page-break-inside: avoid;
+}
+.project h3 {
+  font-size: 11pt;
+  font-weight: 600;
+  margin-bottom: 0.1rem;
+}
+.meta {
+  font-size: 8.5pt;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.meta span {
+  color: var(--accent);
+  font-weight: bold;
+}
+
+.par-list {
+  list-style: none;
+}
+.par-list li {
+  margin-bottom: 0.4rem;
+  display: flex;
+}
+.par-list strong {
+  min-width: 65px;
+  color: var(--accent);
+}
+
+.ext-link {
+  font-size: 8.5pt;
+  font-weight: normal;
+  text-transform: none;
+  letter-spacing: 0;
+  margin-left: 6px;
+}
+
+/* Footer */
+.footer {
+  display: flex;
+  gap: 4rem;
+  margin-top: 2rem;
+  border-top: 1px solid var(--border);
+  padding-top: 1rem;
+}
+.footer-col {
+  flex: 1;
+}
+.footer-col h3 {
+  font-size: 10pt;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+
+@media print {
+  /* 1. Force white background and black text for legibility */
+  body {
+    background: white !important;
+    color: black !important;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+  }
+
+  /* 2. Remove web-only padding from the container */
+  .resume-wrapper,
+  body {
+    padding: 0;
+    max-width: 100%;
+    box-shadow: none;
+  }
+
+  /* 3. THE MAGIC: Prevent projects from splitting across pages */
+  .project-block,
+  .project,
+  .par-card {
+    page-break-inside: avoid;
+    break-inside: avoid;
+    margin-bottom: 1.5rem;
+  }
+
+  /* 4. Hide things that don't belong on paper */
+  .no-print,
+  .ext-link svg {
+    display: none;
+  }
+
+  /* 5. Ensure colors actually print (some browsers default to 'economy') */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* 6. Standardize the A4 margins */
+  @page {
+    size: A4;
+    margin: 1.5cm;
+  }
+}
