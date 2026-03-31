@@ -219,6 +219,8 @@ h2 {
 .project-footer {
   margin-top: 0.25rem;
   padding-left: 1rem;
+  display: flex;
+  align-items: center;
 }
 
 .ext-link {
@@ -227,6 +229,9 @@ h2 {
   text-decoration: none;
   font-weight: 400; /* Normal weight */
   transition: color 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
 }
 
 .ext-link:hover {
