@@ -263,3 +263,41 @@ h2 {
 .project-footer a::before {
   content: ""; /* Removed the arrow to keep it clean */
 }
+
+/* --- MOBILE RESPONSIVENESS --- */
+@media screen and (max-width: 768px) {
+  body {
+    padding: 1rem; /* Halve the padding to give content more room */
+    max-width: 100%; /* Override the 21cm constraint */
+    font-size: 10pt; /* Slightly bump base size for readability on phones */
+  }
+
+  /* Stack the header elements */
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .header-main {
+    margin-right: 0;
+    margin-bottom: 1rem;
+  }
+
+  /* Make contact info wrap nicely instead of overflowing */
+  .contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  /* Hide the horizontal pipe separators on mobile since we are stacking */
+  .contact-info .separator {
+    display: none;
+  }
+
+  /* Stack footer columns */
+  .footer {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+}
