@@ -283,16 +283,24 @@ h2 {
     margin-bottom: 1rem;
   }
 
-  /* Make contact info wrap nicely instead of overflowing */
-  .contact-info {
+  .contact-info,
+  .contact-info div {
     display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+    flex-direction: row;
+    flex-wrap: wrap; /* This is the magic property */
+    gap: 0.5rem 1rem; /* 0.5rem row gap, 1rem column gap */
   }
 
-  /* Hide the horizontal pipe separators on mobile since we are stacking */
+  /* Keep separators hidden so they don't end up stranded on a new line */
   .contact-info .separator {
     display: none;
+  }
+
+  /* Ensure the SVG icons and text stay perfectly aligned inside the links */
+  .contact-info a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
   }
 
   /* Stack footer columns */
