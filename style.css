@@ -2,10 +2,11 @@
   --bg-color: #ffffff;
   --text-main: #0f172a;
   --text-muted: #475569;
-  --accent: #0369a1; /* A sharp, professional blue */
+  --accent: #0f766e; /* A muted teal for accents */
   --border: #e2e8f0;
-  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --font-serif: "Georgia", "Times New Roman", serif;
+  --font-sans:
+    "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-serif: "Playfair Display", "Times New Roman", serif;
 }
 
 * {
@@ -98,7 +99,6 @@ h1 {
   color: var(--text-main);
   margin-bottom: 1.5rem;
   line-height: 1.6;
-  border-left: 3px solid var(--accent);
   padding-left: 1rem;
 }
 
@@ -118,15 +118,31 @@ h2 {
 }
 
 .skills-section p {
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.6rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
 }
 
 .skills-section strong {
   color: var(--text-main);
+  margin-right: 0.15rem;
+}
+
+.skill-tag {
+  background-color: #f1f5f9;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  padding: 0.1rem 0.45rem;
+  border-radius: 4px;
+  font-size: 8pt;
+  font-weight: 500;
+  white-space: nowrap;
 }
 
 .project {
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.9rem;
   page-break-inside: avoid;
 }
 
