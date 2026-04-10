@@ -51,9 +51,9 @@ h1 {
 
 .contact-info {
   display: grid;
-  /* 5 Columns: Icon, Text, Separator, Icon, Text */
-  grid-template-columns: min-content auto min-content min-content auto;
-  column-gap: 0.4rem;
+  /* 3 Columns: Link/Span, Separator, Link/Span */
+  grid-template-columns: auto min-content auto;
+  column-gap: 0.75rem;
   row-gap: 0.25rem;
   align-items: center;
   justify-items: start;
@@ -63,10 +63,16 @@ h1 {
   margin-top: 0.2rem; /* Optically aligns small text with large H1 top */
 }
 
-.contact-info > div,
+.contact-info > div {
+  display: contents;
+}
+
 .contact-info a,
 .contact-info span:not(.separator) {
-  display: contents;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  white-space: nowrap;
 }
 
 .separator {
@@ -97,7 +103,7 @@ h1 {
   font-size: 10pt;
   font-weight: 500;
   color: var(--text-main);
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
   line-height: 1.6;
   padding-left: 1rem;
 }
@@ -108,12 +114,12 @@ h2 {
   color: var(--accent);
   font-style: italic;
   border-bottom: 1px solid var(--border);
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.6rem;
   padding-bottom: 0.2rem;
 }
 
 .skills-section {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
   font-size: 9.5pt;
 }
 
@@ -142,7 +148,7 @@ h2 {
 }
 
 .project {
-  margin-bottom: 1.75rem;
+  margin-bottom: 1.5rem;
   page-break-inside: avoid;
 }
 
@@ -191,10 +197,22 @@ h2 {
   color: var(--text-muted);
 }
 
+.inline-link {
+  text-decoration: none;
+  color: inherit;
+  border-bottom: 1px dotted var(--border);
+  transition: all 0.2s ease;
+}
+
+.inline-link:hover {
+  color: var(--accent);
+  border-bottom: 1px solid var(--accent);
+}
+
 .footer {
   display: flex;
   gap: 2rem;
-  margin-top: 2rem;
+  margin-top: 1.5rem;
   border-top: 1px solid var(--border);
   padding-top: 1.25rem;
 }
@@ -223,6 +241,12 @@ h2 {
     padding: 0;
     width: 100%;
   }
+
+  /* Ensure link boxes exist for PDF URL annotation */
+  .contact-info a {
+    display: inline-flex !important;
+  }
+
   /* .no-print,
   .ext-link {
     display: none;
