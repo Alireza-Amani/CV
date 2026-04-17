@@ -215,7 +215,7 @@ h2 {
 }
 
 .bullet-list li {
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.6rem;
   color: var(--text-main);
   position: relative;
   padding-left: 1rem;
