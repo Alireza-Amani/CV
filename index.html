@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="nl">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -13,6 +13,17 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <div class="lang-toggle">
+      <button
+        class="lang-toggle__btn"
+        onclick="toggleLang()"
+        title="Switch language / Schakel taal"
+      >
+        <span class="lang-toggle__label" id="lblNL">🇳🇱</span>
+        <span class="lang-toggle__sep"> / </span>
+        <span class="lang-toggle__label" id="lblEN">🇬🇧</span>
+      </button>
+    </div>
     <header>
       <div class="header-main">
         <h1>Alireza Amani</h1>
@@ -164,7 +175,7 @@
     </header>
 
     <div class="profile-summary">
-      <p>
+      <p data-key="profile-summary">
         I am a Research Engineer who builds algorithms and predictive models for
         complex systems. I apply first-principles thinking and leverage Python
         and AI to solve problems involving complex physics and noisy data. I am
@@ -173,7 +184,7 @@
       </p>
     </div>
 
-    <h2>Core Competencies & Skills</h2>
+    <h2 data-key="section-skills">Core Competencies & Skills</h2>
     <div class="skills-section">
       <p>
         <strong>Tech Stack:</strong>
@@ -186,7 +197,7 @@
         <span class="skill-tag">Web Development</span>
       </p>
       <p>
-        <strong>Domains:</strong>
+        <strong data-key="skills-domains">Domains:</strong>
         <span class="skill-tag">Water Resources Engineering</span>
         <span class="skill-tag">Climate Data Analysis</span>
         <span class="skill-tag">Numerical Simulation</span>
@@ -194,21 +205,21 @@
         <span class="skill-tag">Physics-Guided ML</span>
       </p>
       <p>
-        <strong>Languages:</strong>
-        <span class="skill-tag">Persian (Native)</span>
-        <span class="skill-tag">English (Fluent)</span>
-        <span class="skill-tag">Dutch (B2)</span>
-        <span class="skill-tag">French (A2)</span>
+        <strong data-key="skills-languages">Languages:</strong>
+        <span class="skill-tag" data-key="lang-persian">Persian (Native)</span>
+        <span class="skill-tag" data-key="lang-english">English (Fluent)</span>
+        <span class="skill-tag" data-key="lang-dutch">Dutch (B2)</span>
+        <span class="skill-tag" data-key="lang-french">French (A2)</span>
       </p>
     </div>
 
-    <h2>Professional Experience</h2>
+    <h2 data-key="section-experience">Professional Experience</h2>
 
     <div class="project">
-      <h3>Computational Hydrologist</h3>
+      <h3 data-key="job-title-1">Computational Hydrologist</h3>
       <div class="meta">Université de Sherbrooke | Aug 2019 – Aug 2024</div>
       <ul class="bullet-list">
-        <li>
+        <li data-key="job1-bullet1">
           <strong>Led the extensive data curation and analysis</strong> of a
           complex multivariable high-frequency dataset to analyze potential
           groundwater recharge, quantifying the future impacts of climate-driven
@@ -268,7 +279,7 @@
         </div>
 
         <li>
-          <p>
+          <p data-key="job1-bullet2">
             <strong>Collaborated with Environment Canada </strong> to
             stress-test and validate the national operational forecasting model
             using high-resolution field data, pinpointing fundamental
@@ -303,7 +314,7 @@
           </a>
         </div>
 
-        <li>
+        <li data-key="job1-bullet3">
           <strong>Developed a Python computational orchestration</strong> to
           modernize a Fortran-based model workflow, reducing model setup time by
           orders of magnitude, facilitating post-processing and results
@@ -339,7 +350,7 @@
           </a>
         </div>
 
-        <li>
+        <li data-key="job1-bullet4">
           <strong>Developed and benchmarked machine learning models</strong>
           integrating geospatial data with high-frequency IoT sensor streams
           across 124 global locations. Designed robust spatial cross-validation
@@ -404,12 +415,12 @@
     </div>
 
     <div class="project">
-      <h3>Water Resources Engineer</h3>
+      <h3 data-key="job-title-2">Water Resources Engineer</h3>
       <div class="meta">
         Iran University of Science and Technology | Sep 2016 - Jun 2019
       </div>
       <ul class="bullet-list">
-        <li>
+        <li data-key="job2-bullet1">
           <strong>Developed a novel optimization algorithm</strong> for NP-hard
           hydropower scheduling, outperforming commercial solvers by an order of
           magnitude in speed and conserving 20,000 m³/day of physical resources
@@ -446,13 +457,15 @@
       </div>
     </div>
 
-    <h2>Technical Projects</h2>
+    <h2 data-key="section-projects">Technical Projects</h2>
 
     <div class="project">
-      <h3>AI Applications Developer</h3>
-      <div class="meta">Self-Directed | 2025 – Present</div>
+      <h3 data-key="job-title-3">AI Applications Developer</h3>
+      <div class="meta" data-key="job3-meta">
+        Self-Directed | 2025 – Present
+      </div>
       <ul class="bullet-list">
-        <li>
+        <li data-key="job3-bullet1">
           <strong>Designed and developed Flash Card 2.0</strong>, a full-stack
           Python web app integrating Google Gemini API for dynamic context-rich
           generation of learning material. Translated cognitive science
@@ -529,8 +542,11 @@
               >svspyed</a
             >:</strong
           >
-          A Python wrapper to orchestrate and run the SVS (Soil, Vegetation, and
-          Snow) land-surface model in point-mode.
+          A
+          <span data-key="repo1-desc"
+            >Python wrapper to orchestrate and run the SVS (Soil, Vegetation,
+            and Snow) land-surface model in point-mode.</span
+          >
         </li>
         <li>
           <strong
@@ -541,8 +557,10 @@
               >CRPSnb</a
             >:</strong
           >
-          A Python package for calculating Neighborhood-Based Continuous Ranked
-          Probability Scores (CRPS).
+          <span data-key="repo2-desc"
+            >A Python package for calculating Neighborhood-Based Continuous
+            Ranked Probability Scores (CRPS).</span
+          >
         </li>
         <li>
           <strong
@@ -553,16 +571,20 @@
               >Integrated Lysimeter Study Data</a
             >:</strong
           >
-          Open-access multi-variable high-frequency dataset from
-          Saint-Nicéphore, Quebec (Zenodo).
+          <span data-key="repo3-desc"
+            >Open-access multi-variable high-frequency dataset from
+            Saint-Nicéphore, Quebec (Zenodo).</span
+          >
         </li>
       </ul>
     </div>
 
-    <h2>Education</h2>
+    <h2 data-key="section-education">Education</h2>
     <div class="project">
       <p style="margin-bottom: 0.3rem">
-        <strong>Ph.D. in Civil Engineering (Hydrology)</strong><br />
+        <strong data-key="edu1-degree"
+          >Ph.D. in Civil Engineering (Hydrology)</strong
+        ><br />
         Université de Sherbrooke, Canada | 2019 – 2024<br />
         <em
           >Thesis: Cold region deep percolation: Characterization, drivers, and
@@ -573,7 +595,8 @@
 
     <div class="project">
       <p style="margin-bottom: 0.3rem">
-        <strong>M.Sc. in Civil Engineering (Water Resources Engineering)</strong
+        <strong data-key="edu2-degree"
+          >M.Sc. in Civil Engineering (Water Resources Engineering)</strong
         ><br />
         Iran University of Science and Technology | 2016 – 2019<br />
         <em
@@ -585,12 +608,12 @@
 
     <div class="project">
       <p style="margin-bottom: 0.3rem">
-        <strong>B.Sc. in Civil Engineering</strong><br />
+        <strong data-key="edu3-degree">B.Sc. in Civil Engineering</strong><br />
         Babol Noshirvani University of Technology | 2011 – 2016
       </p>
     </div>
 
-    <h2>Certifications</h2>
+    <h2 data-key="section-certs">Certifications</h2>
 
     <div class="project grid-2-col">
       <ul class="bullet-list">
@@ -657,7 +680,7 @@
       </ul>
     </div>
 
-    <h2>Selected Publications</h2>
+    <h2 data-key="section-pubs">Selected Publications</h2>
 
     <div class="project">
       <ul class="pub-list">
@@ -819,10 +842,127 @@
             <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
             <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
           </svg>
-          Full list of publications on Google Scholar
+          <span data-key="scholar-link"
+            >Full list of publications on Google Scholar</span
+          >
         </a>
       </div>
     </div>
+
+    <script>
+      (function () {
+        var T = {
+          nl: {
+            "profile-summary":
+              "Ik ben een Research Engineer die algoritmen en voorspellende modellen bouwt voor complexe systemen. Ik pas fundamenteel analytisch denken toe en gebruik Python en AI om complexe fysische problemen en ruizige datasets aan te pakken. Ik ben altijd op zoek naar manieren om werkprocessen te verbeteren — ik vind een oplossing of ik bouw er een.",
+            "section-skills": "Kerncompetenties &amp; Vaardigheden",
+            "skills-domains": "Vakgebieden:",
+            "skills-languages": "Talen:",
+            "section-experience": "Werkervaring",
+            "job-title-1": "Computational Hydrologist",
+            "job1-bullet1":
+              "<strong>Verantwoordelijk voor uitgebreide datacuratie en -analyse</strong> van een hoogfrequente, multivariabele dataset om potentiële grondwateraanvulling te analyseren, met kwantificering van de toekomstige effecten van klimaatgedreven regen-op-sneeuw situaties.",
+            "job1-bullet2":
+              "<strong>Samenwerking met Environment Canada</strong> voor het stresstesten en valideren van het nationale operationele voorspellingsmodel met behulp van hoge-resolutie velddata, waarbij fundamentele beperkingen in de fysica van het model zijn geïdentificeerd.",
+            "job1-bullet3":
+              "<strong>Een Python-orkestratiesysteem ontwikkeld</strong> om een Fortran-gebaseerde modelworkflow te moderniseren. Dit reduceerde de voorbereidingstijd drastisch, vereenvoudigde post-processing en maakte parallelle uitvoering op High-Performance Computing (HPC)-clusters mogelijk.",
+            "job1-bullet4":
+              "<strong>Machine learning-modellen ontwikkeld en geëvalueerd</strong> die geospatiale data integreren met hoogfrequente IoT-sensorstromen op 124 wereldwijde locaties. Robuuste ruimtelijke kruisvalidatiestrategieën ontworpen om overfitting te elimineren, wat resulteerde in een verbetering van 15% in de schatting van evapotranspiratie ten opzichte van traditionele methoden.",
+            "job-title-2": "Water Resources Engineer",
+            "job2-bullet1":
+              "<strong>Een nieuw optimalisatie-algoritme ontwikkeld</strong> voor de NP-harde planning van waterkrachtcentrales. Dit algoritme overtrof commerciële solvers ruimschoots qua snelheid en bespaarde 20.000 m³/dag aan water zonder in te leveren op nauwkeurigheid.",
+            "section-projects": "Technische Projecten",
+            "job-title-3": "AI Applications Developer",
+            "job3-meta": "Zelfstandig | 2025 – heden",
+            "job3-bullet1":
+              "<strong>Flash Card 2.0 ontworpen en ontwikkeld</strong>, een full-stack Python-webapp die gebruikmaakt van de Google Gemini API voor dynamische, contextrijke generatie van leermateriaal. Door cognitieve wetenschapsprincipes te vertalen naar softwarefuncties voor maximale langdurige kennisretentie, hielp deze applicatie mij in één jaar niveau B2 in het Nederlands te bereiken.",
+            "repo1-desc":
+              "Python-wrapper om het SVS-landoppervlaktemodel (Bodem, Vegetatie en Sneeuw) in puntmodus te orkestreren en uit te voeren.",
+            "repo2-desc":
+              "Een Python-pakket voor het berekenen van Neighborhood-Based Continuous Ranked Probability Scores (CRPS).",
+            "repo3-desc":
+              "Open-access multivariabele hoge-frequentie dataset van Saint-Nicéphore, Quebec (Zenodo).",
+            "section-education": "Opleiding",
+            "edu1-degree": "Ph.D. in Civiele Techniek (Hydrologie)",
+            "edu2-degree": "M.Sc. in Civiele Techniek (Waterbeheer)",
+            "edu3-degree": "B.Sc. in Civiele Techniek",
+            "section-certs": "Certificeringen",
+            "section-pubs": "Geselecteerde Publicaties",
+            "scholar-link": "Volledige publicatielijst op Google Scholar",
+            "lang-persian": "Perzisch (moedertaal)",
+            "lang-english": "Engels (vloeiend)",
+            "lang-dutch": "Nederlands (B2)",
+            "lang-french": "Frans (A2)",
+          },
+          en: {
+            "profile-summary":
+              "I am a Research Engineer who builds algorithms and predictive models for complex systems. I apply first-principles thinking and leverage Python and AI to solve problems involving complex physics and noisy data. I am always looking for ways to improve workflow efficiency; either I find a solution or I build one.",
+            "section-skills": "Core Competencies &amp; Skills",
+            "skills-domains": "Domains:",
+            "skills-languages": "Languages:",
+            "section-experience": "Professional Experience",
+            "job-title-1": "Computational Hydrologist",
+            "job1-bullet1":
+              "<strong>Led the extensive data curation and analysis</strong> of a complex multivariable high-frequency dataset to analyze potential groundwater recharge, quantifying the future impacts of climate-driven rain-on-snow events.",
+            "job1-bullet2":
+              "<strong>Collaborated with Environment Canada</strong> to stress-test and validate the national operational forecasting model using high-resolution field data, pinpointing fundamental limitations within the model&#39;s physics.",
+            "job1-bullet3":
+              "<strong>Developed a Python computational orchestration</strong> to modernize a Fortran-based model workflow, reducing model setup time by orders of magnitude, facilitating post-processing and results analysis, and enabling parallel execution on High-Performance Computing (HPC) clusters.",
+            "job1-bullet4":
+              "<strong>Developed and benchmarked machine learning models</strong> integrating geospatial data with high-frequency IoT sensor streams across 124 global locations. Designed robust spatial cross-validation strategies to eliminate overfitting, achieving a 15% improvement in estimating evapotranspiration compared to traditional methods.",
+            "job-title-2": "Water Resources Engineer",
+            "job2-bullet1":
+              "<strong>Developed a novel optimization algorithm</strong> for NP-hard hydropower scheduling, outperforming commercial solvers by an order of magnitude in speed and conserving 20,000 m³/day of physical resources without loss in fidelity.",
+            "section-projects": "Technical Projects",
+            "job-title-3": "AI Applications Developer",
+            "job3-meta": "Self-Directed | 2025 – Present",
+            "job3-bullet1":
+              "<strong>Designed and developed Flash Card 2.0</strong>, a full-stack Python web app integrating Google Gemini API for dynamic context-rich generation of learning material. Translated cognitive science principles into software features to maximize long-term retention; helped me reach B2 Dutch proficiency in one year.",
+            "repo1-desc":
+              "Python wrapper to orchestrate and run the SVS (Soil, Vegetation, and Snow) land-surface model in point-mode.",
+            "repo2-desc":
+              "A Python package for calculating Neighborhood-Based Continuous Ranked Probability Scores (CRPS).",
+            "repo3-desc":
+              "Open-access multi-variable high-frequency dataset from Saint-Nicéphore, Quebec (Zenodo).",
+            "section-education": "Education",
+            "edu1-degree": "Ph.D. in Civil Engineering (Hydrology)",
+            "edu2-degree":
+              "M.Sc. in Civil Engineering (Water Resources Engineering)",
+            "edu3-degree": "B.Sc. in Civil Engineering",
+            "section-certs": "Certifications",
+            "section-pubs": "Selected Publications",
+            "scholar-link": "Full list of publications on Google Scholar",
+            "lang-persian": "Persian (Native)",
+            "lang-english": "English (Fluent)",
+            "lang-dutch": "Dutch (B2)",
+            "lang-french": "French (A2)",
+          },
+        };
+
+        var currentLang = "nl";
+
+        function applyLang(lang) {
+          currentLang = lang;
+          document.documentElement.lang = lang;
+          document.querySelectorAll("[data-key]").forEach(function (el) {
+            var key = el.dataset.key;
+            if (T[lang] && T[lang][key] !== undefined) {
+              el.innerHTML = T[lang][key];
+            }
+          });
+          var nl = document.getElementById("lblNL");
+          var en = document.getElementById("lblEN");
+          if (nl) nl.classList.toggle("active", lang === "nl");
+          if (en) en.classList.toggle("active", lang === "en");
+        }
+
+        window.toggleLang = function () {
+          applyLang(currentLang === "nl" ? "en" : "nl");
+        };
+
+        applyLang("nl");
+      })();
+    </script>
 
     <script
       data-goatcounter="https://curious-alireza.goatcounter.com/count"

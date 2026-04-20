@@ -280,6 +280,55 @@ h2 {
   margin-bottom: 0.3rem;
 }
 
+/* ── Language toggle ───────────────────────────────── */
+.lang-toggle {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1000;
+}
+
+.lang-toggle__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  background: #ffffff;
+  border: 1.5px solid var(--border);
+  border-radius: 20px;
+  padding: 0.3rem 0.85rem;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: 8.5pt;
+  font-weight: 600;
+  color: var(--text-muted);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.2s;
+  letter-spacing: 0.5px;
+}
+
+.lang-toggle__btn:hover {
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+}
+
+.lang-toggle__label {
+  filter: grayscale(1);
+  opacity: 0.45;
+  font-size: 15pt;
+  transition:
+    filter 0.2s,
+    opacity 0.2s;
+}
+
+.lang-toggle__label.active {
+  filter: grayscale(0);
+  opacity: 1;
+}
+
+.lang-toggle__sep {
+  color: var(--border);
+  font-weight: 400;
+}
+
 @media print {
   body {
     background: white !important;
@@ -287,6 +336,8 @@ h2 {
     margin: 0;
     padding: 0;
     width: 100%;
+    font-size: 9pt;
+    line-height: 1.45;
   }
 
   /* Ensure link boxes exist for PDF URL annotation */
@@ -298,9 +349,49 @@ h2 {
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
   }
+
   @page {
     size: A4;
-    margin: 1.5cm 1.2cm 1.2cm 1.2cm;
+    margin: 1.2cm 1.1cm 1.1cm 1.1cm;
+  }
+
+  .lang-toggle {
+    display: none !important;
+  }
+
+  /* Moderate tightening — enough to drop from 3 to 2 pages */
+  h2 {
+    margin-top: 0.65rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .profile-summary {
+    margin-bottom: 0.55rem;
+  }
+
+  .skills-section {
+    margin-bottom: 0.65rem;
+  }
+
+  .skills-section p {
+    margin-bottom: 0.4rem;
+  }
+
+  .project {
+    margin-bottom: 0.55rem;
+  }
+
+  .bullet-list li {
+    margin-bottom: 0.4rem;
+  }
+
+  .project-footer {
+    margin-top: 0.15rem;
+    margin-bottom: 0.15rem;
+  }
+
+  .pub-item {
+    margin-bottom: 0.55rem;
   }
 }
 
