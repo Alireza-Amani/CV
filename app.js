@@ -4,7 +4,7 @@ createApp({
   data() {
     return {
       editMode: false,
-      currentLang: "nl",
+      currentLang: localStorage.getItem("currentLang") || "nl",
       resumeData: {
         personalInfo: {
           name: "Alireza Amani",
@@ -354,6 +354,8 @@ createApp({
         clearTimeout(this._debounceTimer);
         this._debounceTimer = setTimeout(() => {
           this._pushHistory();
+          // Auto-save while editing so refreshing or navigating away never loses work
+          this.saveToLocalStorage();
         }, 400);
       },
     },
@@ -376,15 +378,23 @@ createApp({
       } else {
         this.saveToLocalStorage();
       }
+      // Always persist edit mode state so it survives page refresh
+      localStorage.setItem("editMode", this.editMode ? "1" : "0");
     },
     toggleLang() {
       this.currentLang = this.currentLang === "nl" ? "en" : "nl";
+      localStorage.setItem("currentLang", this.currentLang);
     },
     saveToLocalStorage() {
       localStorage.setItem("resumeData", JSON.stringify(this.resumeData));
+      localStorage.setItem("editMode", this.editMode ? "1" : "0");
     },
     loadFromLocalStorage() {
       const saved = localStorage.getItem("resumeData");
+      const savedEditMode = localStorage.getItem("editMode");
+      if (savedEditMode !== null) {
+        this.editMode = savedEditMode === "1";
+      }
       if (saved) {
         this.resumeData = JSON.parse(saved);
         // Migrate old languages array format to per-language objects
