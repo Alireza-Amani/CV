@@ -99,37 +99,67 @@
         }
 
         .btn {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
             padding: 1rem 2rem;
             border-radius: 8px;
             text-decoration: none;
             font-weight: 600;
             font-size: 1rem;
-            transition: all 0.3s;
+            transition: all 0.25s ease;
             cursor: pointer;
+            border: none;
         }
 
+        /* Primary — hero action */
         .btn-primary {
             background: #0f766e;
             color: white;
-            box-shadow: 0 4px 12px rgba(15, 118, 110, 0.3);
+            font-size: 1.15rem;
+            padding: 1.1rem 2.5rem;
+            box-shadow: 0 4px 16px rgba(15, 118, 110, 0.35);
+            position: relative;
+        }
+
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 12px;
+            border: 2px solid rgba(15, 118, 110, 0.35);
+            animation: pulseRing 2s ease-out infinite;
+        }
+
+        @keyframes pulseRing {
+            0%   { transform: scale(1);   opacity: 0.8; }
+            70%  { transform: scale(1.06); opacity: 0; }
+            100% { transform: scale(1.06); opacity: 0; }
         }
 
         .btn-primary:hover {
             background: #0d5f58;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(15, 118, 110, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 28px rgba(15, 118, 110, 0.45);
         }
 
+        /* Secondary — clearly subordinate */
         .btn-secondary {
-            background: white;
-            color: #0f766e;
-            border: 2px solid #0f766e;
+            background: transparent;
+            color: #64748b;
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding: 0.6rem 1rem;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            text-decoration-color: transparent;
+            transition: color 0.2s, text-decoration-color 0.2s;
         }
 
         .btn-secondary:hover {
-            background: #f1f5f9;
-            transform: translateY(-2px);
+            color: #0f766e;
+            text-decoration-color: #0f766e;
+            transform: none;
         }
 
         .version-info {
@@ -158,6 +188,79 @@
         .emoji {
             font-size: 2rem;
             margin-bottom: 1rem;
+        }
+
+        /* ── Resume Preview ── */
+        .preview-section {
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .preview-section h2 {
+            font-size: 1.2rem;
+            color: #475569;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 1.25rem;
+        }
+
+        .preview-link {
+            display: inline-block;
+            position: relative;
+            cursor: pointer;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: fadeInUp 0.6s ease both;
+            max-width: 340px;
+            width: 100%;
+        }
+
+        .preview-link:hover {
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 0 18px 48px rgba(15, 118, 110, 0.25);
+        }
+
+        .preview-link img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        .preview-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(15, 118, 110, 0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s ease;
+        }
+
+        .preview-link:hover .preview-overlay {
+            background: rgba(15, 118, 110, 0.55);
+        }
+
+        .preview-overlay span {
+            color: white;
+            font-weight: 700;
+            font-size: 1rem;
+            letter-spacing: 0.04em;
+            opacity: 0;
+            transform: translateY(6px);
+            transition: opacity 0.25s ease, transform 0.25s ease;
+        }
+
+        .preview-link:hover .preview-overlay span {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
         }
 
         @media (max-width: 600px) {
@@ -211,14 +314,25 @@
                 </div>
             </div>
 
+            <!-- Resume Preview -->
+            <div class="preview-section">
+                <h2>👁 Preview</h2>
+                <a href="index.editable.html" class="preview-link" title="Open editable resume">
+                    <img src="resume-preview.png" alt="Resume preview" loading="lazy">
+                    <div class="preview-overlay"><span>✏️ Open &amp; Edit</span></div>
+                </a>
+            </div>
+
             <div class="cta-section">
-                <h2>Choose Your Version</h2>
+                <h2>Get Started</h2>
                 <div class="button-group">
                     <a href="index.editable.html" class="btn btn-primary">
-                        🚀 Start Editing
+                        ✏️ Start Editing
                     </a>
+                </div>
+                <div style="margin-top: 1rem;">
                     <a href="index.original.html" class="btn btn-secondary">
-                        👁️ View Static Version
+                        or view the static read-only version →
                     </a>
                 </div>
             </div>

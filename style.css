@@ -826,9 +826,43 @@ h2 {
   .edit-controls,
   .edit-controls-panel,
   .lang-toggle,
-  .section-reorder-header {
+  .section-reorder-header,
+  .back-btn {
     display: none !important;
   }
+}
+
+/* ── Back to Start button ── */
+.back-btn {
+  position: fixed;
+  bottom: 1.25rem;
+  left: 1.25rem;
+  z-index: 9999;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.5rem 1rem;
+  background: rgba(255, 255, 255, 0.9);
+  color: #0f766e;
+  border: 1.5px solid rgba(15, 118, 110, 0.3);
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  font-family: var(--font-sans);
+  text-decoration: none;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s, transform 0.2s;
+  opacity: 0.7;
+}
+
+.back-btn:hover {
+  background: #0f766e;
+  color: white;
+  box-shadow: 0 4px 20px rgba(15, 118, 110, 0.3);
+  transform: translateY(-2px);
+  opacity: 1;
 }
 
 /* When edit mode is active, add padding to body */
