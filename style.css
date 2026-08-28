@@ -250,6 +250,30 @@ h2 {
   border-bottom: 1px solid var(--accent);
 }
 
+/* Thesis link — sits on same line as the em text, subtle separator */
+.thesis-link {
+  margin-left: 0.6rem;
+  padding-left: 0.6rem;
+  border-left: 1px solid var(--border);
+  font-size: 7.5pt;
+  color: var(--text-muted);
+  vertical-align: middle;
+}
+
+/* Thesis URL edit row — compact, not a full-width rectangle */
+.thesis-url-edit {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin-top: 0.15rem;
+  color: var(--text-muted);
+}
+.thesis-url-edit .edit-input {
+  font-size: 7.5pt;
+  padding: 0.1rem 0.3rem;
+  border-radius: 3px;
+}
+
 .footer {
   display: flex;
   gap: 2rem;

@@ -361,7 +361,17 @@
           </span>
           <br />
           <em v-if="edu.thesis && edu.thesis[currentLang] && !editMode">{{ edu.thesis[currentLang] }}</em>
-          <input v-else-if="editMode" type="text" v-model="edu.thesis[currentLang]" class="edit-input" placeholder="Thesis (optional)">
+          <input v-if="editMode" type="text" v-model="edu.thesis[currentLang]" class="edit-input" placeholder="Thesis (optional)" style="margin-top:0.2rem;">
+          <template v-if="!editMode && edu.thesisUrl && edu.thesis && edu.thesis[currentLang]">
+            <a :href="edu.thesisUrl" class="ext-link thesis-link" target="_blank" rel="noopener noreferrer">
+              <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              View thesis
+            </a>
+          </template>
+          <div v-if="editMode" class="thesis-url-edit">
+            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+            <input type="url" v-model="edu.thesisUrl" class="edit-input edit-input-inline" placeholder="Thesis URL" style="flex:1;">
+          </div>
         </p>
       </div>
       <button v-if="editMode" @click="addEducation" class="btn-add-section">+ Add Education</button>
