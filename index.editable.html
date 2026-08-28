@@ -135,7 +135,7 @@
       <template v-for="(sectionId, sectionIndex) in sectionOrder" :key="sectionId">
 
         <!-- Section Move Controls (Edit Mode Only) -->
-        <div v-if="editMode" class="section-reorder-header">
+        <div v-if="editMode" class="section-reorder-header" :class="{ 'header-hidden': sectionVisibility[sectionId] === false }">
           <div class="section-title-bar">
             <input
               type="text"
@@ -144,13 +144,17 @@
               placeholder="Section title"
             />
             <div class="move-buttons">
+              <button @click="toggleSectionVisibility(sectionId)" class="btn-move btn-toggle-visibility" :title="sectionVisibility[sectionId] === false ? 'Show section' : 'Hide section'">
+                {{ sectionVisibility[sectionId] === false ? '👁️‍🗨️' : '👁️' }}
+              </button>
               <button @click="moveSection(sectionIndex, 'up')" :disabled="sectionIndex === 0" class="btn-move" title="Move section up">↑</button>
               <button @click="moveSection(sectionIndex, 'down')" :disabled="sectionIndex === sectionOrder.length - 1" class="btn-move" title="Move section down">↓</button>
             </div>
           </div>
         </div>
 
-        <!-- Profile Summary Section -->
+        <div v-if="sectionVisibility[sectionId] !== false || editMode" class="section-content-wrapper" :class="{ 'is-hidden-content': editMode && sectionVisibility[sectionId] === false }">
+          <!-- Profile Summary Section -->
         <template v-if="sectionId === 'profileSummary'">
           <h2 v-if="!editMode">{{ getSectionTitle(sectionId) }}</h2>
           <div class="profile-summary">
@@ -488,6 +492,7 @@
           </div>
           <button v-if="editMode" @click="addReference" class="btn-add-section">+ Add Reference</button>
         </template>
+        </div>
 
       </template>
     </div>

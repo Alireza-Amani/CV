@@ -350,6 +350,17 @@ createApp({
         publications: { en: "Selected Publications", nl: "Geselecteerde Publicaties" },
         references: { en: "References", nl: "Referenties" },
       },
+      sectionVisibility: {
+        profileSummary: true,
+        skills: true,
+        experiences: true,
+        projects: true,
+        repositories: true,
+        education: true,
+        certifications: true,
+        publications: true,
+        references: true,
+      },
       _undoStack: [],
       _redoStack: [],
       _historyPaused: false,
@@ -398,6 +409,17 @@ createApp({
         }, 400);
       },
     },
+    sectionVisibility: {
+      deep: true,
+      handler() {
+        if (this._historyPaused || !this.editMode) return;
+        clearTimeout(this._debounceTimer);
+        this._debounceTimer = setTimeout(() => {
+          this._pushHistory();
+          this.saveToLocalStorage();
+        }, 400);
+      },
+    },
   },
   methods: {
     toggleEditMode() {
@@ -420,11 +442,13 @@ createApp({
     saveToLocalStorage() {
       localStorage.setItem("resumeData", JSON.stringify(this.resumeData));
       localStorage.setItem("sectionTitles", JSON.stringify(this.sectionTitles));
+      localStorage.setItem("sectionVisibility", JSON.stringify(this.sectionVisibility));
       localStorage.setItem("editMode", this.editMode ? "1" : "0");
     },
     loadFromLocalStorage() {
       const saved = localStorage.getItem("resumeData");
       const savedTitles = localStorage.getItem("sectionTitles");
+      const savedVisibility = localStorage.getItem("sectionVisibility");
       const savedEditMode = localStorage.getItem("editMode");
       if (savedEditMode !== null) {
         this.editMode = savedEditMode === "1";
@@ -453,12 +477,17 @@ createApp({
         const parsed = JSON.parse(savedTitles);
         this.sectionTitles = Object.assign({}, this.sectionTitles, parsed);
       }
+      if (savedVisibility) {
+        const parsed = JSON.parse(savedVisibility);
+        this.sectionVisibility = Object.assign({}, this.sectionVisibility, parsed);
+      }
     },
     _snapshot() {
       return JSON.stringify({
         resumeData: this.resumeData,
         sectionOrder: this.sectionOrder,
         sectionTitles: this.sectionTitles,
+        sectionVisibility: this.sectionVisibility,
       });
     },
     _pushHistory() {
@@ -492,9 +521,13 @@ createApp({
       this.resumeData = state.resumeData;
       this.sectionOrder = state.sectionOrder;
       if (state.sectionTitles) this.sectionTitles = state.sectionTitles;
+      if (state.sectionVisibility) this.sectionVisibility = state.sectionVisibility;
       this.$nextTick(() => {
         this._historyPaused = false;
       });
+    },
+    toggleSectionVisibility(sectionId) {
+      this.sectionVisibility[sectionId] = !this.sectionVisibility[sectionId];
     },
     addSkill(category) {
       const skill = prompt(`Add new ${category}:`);
