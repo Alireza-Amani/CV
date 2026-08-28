@@ -275,6 +275,15 @@ createApp({
             url: "https://coursera.org/share/79be45be60e8a8ceb59c7f97b461a698",
           },
         ],
+        references: [
+          {
+            name: "Dr. Marie-Audrey Boucher",
+            title: { en: "Professor", nl: "Professor" },
+            company: "Université de Sherbrooke",
+            email: "marie-audrey.boucher@usherbrooke.ca",
+            phone: "",
+          },
+        ],
         publications: [
           {
             title:
@@ -328,7 +337,19 @@ createApp({
         "education",
         "certifications",
         "publications",
+        "references",
       ],
+      sectionTitles: {
+        profileSummary: { en: "Profile Summary", nl: "Profiel Samenvatting" },
+        skills: { en: "Core Competencies & Skills", nl: "Kerncompetenties & Vaardigheden" },
+        experiences: { en: "Professional Experience", nl: "Werkervaring" },
+        projects: { en: "Technical Projects", nl: "Technische Projecten" },
+        repositories: { en: "Repositories & Datasets", nl: "Repositories & Datasets" },
+        education: { en: "Education", nl: "Opleiding" },
+        certifications: { en: "Certifications", nl: "Certificeringen" },
+        publications: { en: "Selected Publications", nl: "Geselecteerde Publicaties" },
+        references: { en: "References", nl: "Referenties" },
+      },
       _undoStack: [],
       _redoStack: [],
       _historyPaused: false,
@@ -366,6 +387,17 @@ createApp({
         this._pushHistory();
       },
     },
+    sectionTitles: {
+      deep: true,
+      handler() {
+        if (this._historyPaused || !this.editMode) return;
+        clearTimeout(this._debounceTimer);
+        this._debounceTimer = setTimeout(() => {
+          this._pushHistory();
+          this.saveToLocalStorage();
+        }, 400);
+      },
+    },
   },
   methods: {
     toggleEditMode() {
@@ -387,10 +419,12 @@ createApp({
     },
     saveToLocalStorage() {
       localStorage.setItem("resumeData", JSON.stringify(this.resumeData));
+      localStorage.setItem("sectionTitles", JSON.stringify(this.sectionTitles));
       localStorage.setItem("editMode", this.editMode ? "1" : "0");
     },
     loadFromLocalStorage() {
       const saved = localStorage.getItem("resumeData");
+      const savedTitles = localStorage.getItem("sectionTitles");
       const savedEditMode = localStorage.getItem("editMode");
       if (savedEditMode !== null) {
         this.editMode = savedEditMode === "1";
@@ -409,12 +443,22 @@ createApp({
             })),
           };
         }
+        // Migrate: ensure references array exists
+        if (!Array.isArray(this.resumeData.references)) {
+          this.resumeData.references = [];
+        }
+      }
+      if (savedTitles) {
+        // Merge saved titles so any new default keys are preserved
+        const parsed = JSON.parse(savedTitles);
+        this.sectionTitles = Object.assign({}, this.sectionTitles, parsed);
       }
     },
     _snapshot() {
       return JSON.stringify({
         resumeData: this.resumeData,
         sectionOrder: this.sectionOrder,
+        sectionTitles: this.sectionTitles,
       });
     },
     _pushHistory() {
@@ -447,6 +491,7 @@ createApp({
       const state = JSON.parse(snap);
       this.resumeData = state.resumeData;
       this.sectionOrder = state.sectionOrder;
+      if (state.sectionTitles) this.sectionTitles = state.sectionTitles;
       this.$nextTick(() => {
         this._historyPaused = false;
       });
@@ -511,8 +556,16 @@ createApp({
         links: [],
       });
     },
-    removeBullet(experience, index) {
-      experience.bullets.splice(index, 1);
+    removeBullet(item, index) {
+      item.bullets.splice(index, 1);
+    },
+    moveBullet(item, index, direction) {
+      const newIndex = direction === "up" ? index - 1 : index + 1;
+      if (newIndex >= 0 && newIndex < item.bullets.length) {
+        const temp = item.bullets[index];
+        item.bullets[index] = item.bullets[newIndex];
+        item.bullets[newIndex] = temp;
+      }
     },
     addLink(bullet) {
       bullet.links.push({
@@ -583,6 +636,28 @@ createApp({
     },
     removePublicationLink(publication, index) {
       publication.links.splice(index, 1);
+    },
+    addReference() {
+      this.resumeData.references.push({
+        name: "Reference Name",
+        title: { en: "Title", nl: "Functietitel" },
+        company: "Company / Institution",
+        email: "",
+        phone: "",
+      });
+    },
+    removeReference(index) {
+      if (confirm("Remove this reference?")) {
+        this.resumeData.references.splice(index, 1);
+      }
+    },
+    moveReference(index, direction) {
+      const newIndex = direction === "up" ? index - 1 : index + 1;
+      if (newIndex >= 0 && newIndex < this.resumeData.references.length) {
+        const temp = this.resumeData.references[index];
+        this.resumeData.references[index] = this.resumeData.references[newIndex];
+        this.resumeData.references[newIndex] = temp;
+      }
     },
     addRepository() {
       this.resumeData.repositories.push({
@@ -674,24 +749,8 @@ createApp({
       }
     },
     getSectionTitle(sectionId) {
-      const titles = {
-        profileSummary: { en: "Profile Summary", nl: "Profiel Samenvatting" },
-        skills: { en: "Skills", nl: "Vaardigheden" },
-        experiences: { en: "Professional Experience", nl: "Werkervaring" },
-        projects: { en: "Technical Projects", nl: "Technische Projecten" },
-        repositories: {
-          en: "Repositories & Datasets",
-          nl: "Repositories & Datasets",
-        },
-        education: { en: "Education", nl: "Opleiding" },
-        certifications: { en: "Certifications", nl: "Certificeringen" },
-        publications: {
-          en: "Selected Publications",
-          nl: "Geselecteerde Publicaties",
-        },
-      };
-      return titles[sectionId]
-        ? titles[sectionId][this.currentLang]
+      return this.sectionTitles[sectionId]
+        ? this.sectionTitles[sectionId][this.currentLang]
         : sectionId;
     },
     getIcon(iconName) {

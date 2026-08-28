@@ -815,11 +815,23 @@ h2 {
   gap: 1rem;
 }
 
-.section-title-text {
+.section-title-input {
   margin: 0;
-  font-size: 16pt;
-  color: var(--accent);
+  font-size: 16pt !important;
+  font-weight: 700;
+  color: var(--accent) !important;
   flex-grow: 1;
+  border: none !important;
+  border-bottom: 2px dashed var(--accent) !important;
+  background: transparent !important;
+  padding: 0 0.1rem !important;
+  outline: none;
+  width: auto;
+  min-width: 0;
+}
+.section-title-input:focus {
+  border-bottom-color: var(--text-main) !important;
+  background: rgba(15, 118, 110, 0.04) !important;
 }
 
 @media print {
@@ -868,4 +880,56 @@ h2 {
 /* When edit mode is active, add padding to body */
 #app.edit-mode-active {
   padding-top: 6rem;
+}
+
+/* ── References Section ── */
+.references-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 0.75rem;
+  padding: 0;
+}
+
+.reference-card {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.6rem 0.75rem;
+  background: #fafafa;
+}
+
+.ref-name {
+  font-weight: 600;
+  font-size: 9.5pt;
+  color: var(--text-main);
+  margin-bottom: 0.1rem;
+}
+
+.ref-name-input {
+  font-weight: 600 !important;
+}
+
+.ref-title {
+  font-size: 8.5pt;
+  color: var(--accent);
+  margin-bottom: 0.05rem;
+}
+
+.ref-company {
+  font-size: 8.5pt;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.ref-contact {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 8pt;
+  color: var(--text-muted);
+  text-decoration: none;
+  margin-top: 0.15rem;
+}
+
+.ref-contact:hover {
+  color: var(--accent);
 }

@@ -137,7 +137,12 @@
         <!-- Section Move Controls (Edit Mode Only) -->
         <div v-if="editMode" class="section-reorder-header">
           <div class="section-title-bar">
-            <h2 class="section-title-text">{{ getSectionTitle(sectionId) }}</h2>
+            <input
+              type="text"
+              v-model="sectionTitles[sectionId][currentLang]"
+              class="edit-input section-title-input"
+              placeholder="Section title"
+            />
             <div class="move-buttons">
               <button @click="moveSection(sectionIndex, 'up')" :disabled="sectionIndex === 0" class="btn-move" title="Move section up">↑</button>
               <button @click="moveSection(sectionIndex, 'down')" :disabled="sectionIndex === sectionOrder.length - 1" class="btn-move" title="Move section down">↓</button>
@@ -147,7 +152,7 @@
 
         <!-- Profile Summary Section -->
         <template v-if="sectionId === 'profileSummary'">
-          <h2 v-if="!editMode">{{ currentLang === 'nl' ? 'Profiel Samenvatting' : 'Profile Summary' }}</h2>
+          <h2 v-if="!editMode">{{ getSectionTitle(sectionId) }}</h2>
           <div class="profile-summary">
             <p v-if="!editMode">{{ currentProfileSummary }}</p>
             <textarea v-else v-model="resumeData.profileSummary[currentLang]" class="edit-textarea" rows="4" placeholder="Your professional summary"></textarea>
@@ -156,7 +161,7 @@
 
         <!-- Skills Section -->
         <template v-if="sectionId === 'skills'">
-          <h2 v-if="!editMode">{{ currentLang === 'nl' ? 'Kerncompetenties & Vaardigheden' : 'Core Competencies & Skills' }}</h2>
+          <h2 v-if="!editMode">{{ getSectionTitle(sectionId) }}</h2>
           <div class="skills-section">
             <p>
               <strong>Tech Stack:</strong>
@@ -193,7 +198,7 @@
 
         <!-- Experience Section -->
         <template v-if="sectionId === 'experiences'">
-          <h2 v-if="!editMode">{{ currentLang === 'nl' ? 'Werkervaring' : 'Professional Experience' }}</h2>
+          <h2 v-if="!editMode">{{ getSectionTitle(sectionId) }}</h2>
       <div v-for="(exp, expIndex) in resumeData.experiences" :key="'exp-' + expIndex" class="project">
         <div class="editable-section-header" v-if="editMode">
           <div class="move-buttons">
@@ -236,7 +241,11 @@
               </template>
               <button v-if="editMode" @click="addLink(bullet)" class="btn-add-inline">+ Link</button>
             </div>
-            <button v-if="editMode" @click="removeBullet(exp, bulletIndex)" class="btn-remove">Remove Bullet</button>
+            <div v-if="editMode" style="display:flex; align-items:center; gap:0.25rem; margin-top:0.3rem;">
+              <button @click="moveBullet(exp, bulletIndex, 'up')" :disabled="bulletIndex === 0" class="btn-move-skill" title="Move up">↑</button>
+              <button @click="moveBullet(exp, bulletIndex, 'down')" :disabled="bulletIndex === exp.bullets.length - 1" class="btn-move-skill" title="Move down">↓</button>
+              <button @click="removeBullet(exp, bulletIndex)" class="btn-remove" style="margin-top:0; margin-left:0.25rem;">Remove</button>
+            </div>
           </li>
         </ul>
         <button v-if="editMode" @click="addBullet(exp)" class="btn-add">+ Add Achievement</button>
@@ -246,7 +255,7 @@
 
         <!-- Projects Section -->
         <template v-if="sectionId === 'projects'">
-          <h2 v-if="!editMode">{{ currentLang === 'nl' ? 'Technische Projecten' : 'Technical Projects' }}</h2>
+          <h2 v-if="!editMode">{{ getSectionTitle(sectionId) }}</h2>
       <div v-for="(project, projIndex) in resumeData.projects" :key="'proj-' + projIndex" class="project">
         <div class="editable-section-header" v-if="editMode">
           <div class="move-buttons">
@@ -289,7 +298,11 @@
               </template>
               <button v-if="editMode" @click="addLink(bullet)" class="btn-add-inline">+ Link</button>
             </div>
-            <button v-if="editMode" @click="removeBullet(project, bulletIndex)" class="btn-remove">Remove Bullet</button>
+            <div v-if="editMode" style="display:flex; align-items:center; gap:0.25rem; margin-top:0.3rem;">
+              <button @click="moveBullet(project, bulletIndex, 'up')" :disabled="bulletIndex === 0" class="btn-move-skill" title="Move up">↑</button>
+              <button @click="moveBullet(project, bulletIndex, 'down')" :disabled="bulletIndex === project.bullets.length - 1" class="btn-move-skill" title="Move down">↓</button>
+              <button @click="removeBullet(project, bulletIndex)" class="btn-remove" style="margin-top:0; margin-left:0.25rem;">Remove</button>
+            </div>
           </li>
         </ul>
         <button v-if="editMode" @click="addBullet(project)" class="btn-add">+ Add Item</button>
@@ -299,7 +312,7 @@
 
         <!-- Repositories Section -->
         <template v-if="sectionId === 'repositories'">
-          <h2 v-if="!editMode">Repositories & Datasets</h2>
+          <h2 v-if="!editMode">{{ getSectionTitle(sectionId) }}</h2>
       <div class="project">
         <ul class="bullet-list">
           <li v-for="(repo, repoIndex) in resumeData.repositories" :key="'repo-' + repoIndex">
@@ -323,7 +336,7 @@
 
         <!-- Education Section -->
         <template v-if="sectionId === 'education'">
-          <h2 v-if="!editMode">{{ currentLang === 'nl' ? 'Opleiding' : 'Education' }}</h2>
+          <h2 v-if="!editMode">{{ getSectionTitle(sectionId) }}</h2>
       <div v-for="(edu, eduIndex) in resumeData.education" :key="'edu-' + eduIndex" class="project">
         <div class="editable-section-header" v-if="editMode" style="margin-bottom: 0.5rem;">
           <div class="move-buttons">
@@ -352,7 +365,7 @@
 
         <!-- Certifications Section -->
         <template v-if="sectionId === 'certifications'">
-          <h2 v-if="!editMode">{{ currentLang === 'nl' ? 'Certificeringen' : 'Certifications' }}</h2>
+          <h2 v-if="!editMode">{{ getSectionTitle(sectionId) }}</h2>
       <div class="project grid-2-col">
         <ul class="bullet-list">
           <li v-for="(cert, certIndex) in resumeData.certifications" :key="'cert-' + certIndex">
@@ -376,7 +389,7 @@
 
         <!-- Publications Section -->
         <template v-if="sectionId === 'publications'">
-          <h2 v-if="!editMode">{{ currentLang === 'nl' ? 'Geselecteerde Publicaties' : 'Selected Publications' }}</h2>
+          <h2 v-if="!editMode">{{ getSectionTitle(sectionId) }}</h2>
       <div class="project">
         <ul class="pub-list">
           <li v-for="(pub, pubIndex) in resumeData.publications" :key="'pub-' + pubIndex" class="pub-item">
@@ -427,6 +440,53 @@
         </ul>
         <button v-if="editMode" @click="addPublication" class="btn-add-section">+ Add Publication</button>
       </div>
+        </template>
+
+        <!-- References Section -->
+        <template v-if="sectionId === 'references'">
+          <h2 v-if="!editMode">{{ getSectionTitle(sectionId) }}</h2>
+          <div class="project references-grid">
+            <div
+              v-for="(ref, refIndex) in resumeData.references"
+              :key="'ref-' + refIndex"
+              class="reference-card"
+            >
+              <div class="editable-section-header" v-if="editMode" style="margin-bottom: 0.5rem;">
+                <div class="move-buttons">
+                  <button @click="moveReference(refIndex, 'up')" :disabled="refIndex === 0" class="btn-move" title="Move up">↑</button>
+                  <button @click="moveReference(refIndex, 'down')" :disabled="refIndex === resumeData.references.length - 1" class="btn-move" title="Move down">↓</button>
+                </div>
+                <button @click="removeReference(refIndex)" class="btn-remove-section">🗑️ Remove</button>
+              </div>
+
+              <!-- Name -->
+              <div class="ref-name" v-if="!editMode">{{ ref.name }}</div>
+              <input v-else type="text" v-model="ref.name" class="edit-input ref-name-input" placeholder="Full Name">
+
+              <!-- Title -->
+              <div class="ref-title" v-if="!editMode">{{ ref.title[currentLang] }}</div>
+              <input v-else type="text" v-model="ref.title[currentLang]" class="edit-input" placeholder="Job Title / Role">
+
+              <!-- Company -->
+              <div class="ref-company" v-if="!editMode">{{ ref.company }}</div>
+              <input v-else type="text" v-model="ref.company" class="edit-input" placeholder="Company / Institution">
+
+              <!-- Email -->
+              <a v-if="!editMode && ref.email" :href="'mailto:' + ref.email" class="ref-contact">
+                <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="contact-icon"><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path><rect width="20" height="16" x="2" y="4" rx="2"></rect></svg>
+                {{ ref.email }}
+              </a>
+              <input v-else-if="editMode" type="email" v-model="ref.email" class="edit-input" placeholder="email@example.com">
+
+              <!-- Phone -->
+              <div v-if="!editMode && ref.phone" class="ref-contact">
+                <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="contact-icon"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                {{ ref.phone }}
+              </div>
+              <input v-else-if="editMode" type="text" v-model="ref.phone" class="edit-input" placeholder="Phone (optional)">
+            </div>
+          </div>
+          <button v-if="editMode" @click="addReference" class="btn-add-section">+ Add Reference</button>
         </template>
 
       </template>
