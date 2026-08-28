@@ -375,7 +375,7 @@
 
         <!-- Publications Section -->
         <template v-if="sectionId === 'publications'">
-          <h2 v-if="!editMode">{{ currentLang === 'nl' ? 'Geselecteerde Publicaties' : 'Selected Publications' }}</h2>
+          <h2 v-if="!editMode">{{ getSectionTitle(sectionId) }}</h2>
       <div class="project">
         <ul class="pub-list">
           <li v-for="(pub, pubIndex) in resumeData.publications" :key="'pub-' + pubIndex" class="pub-item">

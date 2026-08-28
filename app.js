@@ -287,9 +287,23 @@ createApp({
         publications: [
           {
             title:
+              "Cold climates, complex hydrology: can a land surface model accurately simulate deep percolation?",
+            authors:
+              "Amani, A., Boucher, M.-A., Cabral, A. R., Vionnet, V., and Gaborit, É. (2025)",
+            journal: "Hydrology and Earth System Sciences",
+            links: [
+              {
+                text: "View Publication",
+                url: "https://doi.org/10.5194/hess-29-2445-2025",
+                icon: "external",
+              },
+            ],
+          },
+          {
+            title:
               "Analysing Deep Percolation Dynamics: A Lysimeter-Based Study in a Cold Environment",
             authors:
-              "Amani, A., Boucher, M.-A., Cabral, A.R., Vionnet, V. and Gaborit, E. (2025)",
+              "Amani, A., Boucher, M.-A., Cabral, A. R., Vionnet, V., and Gaborit, É. (2025)",
             journal: "Hydrological Processes",
             links: [
               {
@@ -301,15 +315,29 @@ createApp({
           },
           {
             title:
-              "Cold climates, complex hydrology: can a land surface model accurately simulate deep percolation?",
+              "Comparing three machine learning algorithms with existing methods for natural streamflow estimation",
             authors:
-              "Amani, A., Boucher, M.-A., Cabral, A. R., Vionnet, V., and Gaborit, É. (2025)",
-            journal: "Hydrol. Earth Syst. Sci.",
+              "Mehrvand, S., Boucher, M.-A., Kornelsen, K., and Amani, A. (2024)",
+            journal: "Hydrological Sciences Journal",
             links: [
               {
                 text: "View Publication",
-                url: "https://doi.org/10.5194/hess-29-2445-2025",
+                url: "https://doi.org/10.1080/02626667.2023.2273402",
                 icon: "external",
+              },
+            ],
+          },
+          {
+            title:
+              "Assessing the generalization power of three machine learning models and three evapotranspiration formulas using 143 FLUXNET towers data",
+            authors:
+              "Amani, A., Boucher, M.-A., Cabral, A. R., and Nadeau, D. F. (2022)",
+            journal: "EGU General Assembly 2022",
+            links: [
+              {
+                text: "View Presentation",
+                url: "https://meetingorganizer.copernicus.org/EGU22/EGU22-5580.html",
+                icon: "presentation",
               },
             ],
           },
@@ -347,7 +375,7 @@ createApp({
         repositories: { en: "Repositories & Datasets", nl: "Repositories & Datasets" },
         education: { en: "Education", nl: "Opleiding" },
         certifications: { en: "Certifications", nl: "Certificeringen" },
-        publications: { en: "Selected Publications", nl: "Geselecteerde Publicaties" },
+        publications: { en: "Publications & Presentations", nl: "Publicaties & Presentaties" },
         references: { en: "References", nl: "Referenties" },
       },
       sectionVisibility: {
@@ -440,6 +468,7 @@ createApp({
       localStorage.setItem("currentLang", this.currentLang);
     },
     saveToLocalStorage() {
+      if (this._isResetting) return;
       localStorage.setItem("resumeData", JSON.stringify(this.resumeData));
       localStorage.setItem("sectionTitles", JSON.stringify(this.sectionTitles));
       localStorage.setItem("sectionVisibility", JSON.stringify(this.sectionVisibility));
@@ -777,7 +806,13 @@ createApp({
     },
     resetData() {
       if (confirm("This will reset all data to default. Continue?")) {
+        this._isResetting = true;
+        window.removeEventListener("beforeunload", this.saveToLocalStorage);
         localStorage.removeItem("resumeData");
+        localStorage.removeItem("sectionTitles");
+        localStorage.removeItem("sectionVisibility");
+        localStorage.removeItem("sectionOrder");
+        localStorage.removeItem("editMode");
         location.reload();
       }
     },
