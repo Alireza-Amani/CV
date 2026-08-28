@@ -443,43 +443,53 @@ createApp({
       localStorage.setItem("resumeData", JSON.stringify(this.resumeData));
       localStorage.setItem("sectionTitles", JSON.stringify(this.sectionTitles));
       localStorage.setItem("sectionVisibility", JSON.stringify(this.sectionVisibility));
+      localStorage.setItem("sectionOrder", JSON.stringify(this.sectionOrder));
       localStorage.setItem("editMode", this.editMode ? "1" : "0");
     },
     loadFromLocalStorage() {
+      const defaultData = JSON.parse(JSON.stringify(this.resumeData));
+      
       const saved = localStorage.getItem("resumeData");
       const savedTitles = localStorage.getItem("sectionTitles");
       const savedVisibility = localStorage.getItem("sectionVisibility");
+      const savedOrder = localStorage.getItem("sectionOrder");
       const savedEditMode = localStorage.getItem("editMode");
+      
       if (savedEditMode !== null) {
         this.editMode = savedEditMode === "1";
       }
       if (saved) {
-        this.resumeData = JSON.parse(saved);
-        // Migrate old languages array format to per-language objects
-        const langs = this.resumeData.skills.languages;
+        const parsed = JSON.parse(saved);
+        // Merge missing top-level keys from defaults (e.g. newly added sections like references)
+        for (const key in defaultData) {
+          if (!(key in parsed)) {
+            parsed[key] = defaultData[key];
+          }
+        }
+        this.resumeData = parsed;
+        
+        // Migrate old languages array format
+        const langs = this.resumeData.skills?.languages;
         if (Array.isArray(langs)) {
           this.resumeData.skills.languages = {
-            en: langs.map((l) => ({
-              name: typeof l.name === "object" ? l.name.en : l.name,
-            })),
-            nl: langs.map((l) => ({
-              name: typeof l.name === "object" ? l.name.nl : l.name,
-            })),
+            en: langs.map((l) => ({ name: typeof l.name === "object" ? l.name.en : l.name })),
+            nl: langs.map((l) => ({ name: typeof l.name === "object" ? l.name.nl : l.name })),
           };
-        }
-        // Migrate: ensure references array exists
-        if (!Array.isArray(this.resumeData.references)) {
-          this.resumeData.references = [];
         }
       }
       if (savedTitles) {
-        // Merge saved titles so any new default keys are preserved
         const parsed = JSON.parse(savedTitles);
         this.sectionTitles = Object.assign({}, this.sectionTitles, parsed);
       }
       if (savedVisibility) {
         const parsed = JSON.parse(savedVisibility);
         this.sectionVisibility = Object.assign({}, this.sectionVisibility, parsed);
+      }
+      if (savedOrder) {
+        const parsed = JSON.parse(savedOrder);
+        // Ensure any new sections in the codebase default order are appended
+        const missing = this.sectionOrder.filter(id => !parsed.includes(id));
+        this.sectionOrder = [...parsed, ...missing];
       }
     },
     _snapshot() {
@@ -708,7 +718,13 @@ createApp({
       }
     },
     exportData() {
-      const dataStr = JSON.stringify(this.resumeData, null, 2);
+      const exportObj = {
+        resumeData: this.resumeData,
+        sectionTitles: this.sectionTitles,
+        sectionVisibility: this.sectionVisibility,
+        sectionOrder: this.sectionOrder
+      };
+      const dataStr = JSON.stringify(exportObj, null, 2);
       const dataBlob = new Blob([dataStr], { type: "application/json" });
       const url = URL.createObjectURL(dataBlob);
       const link = document.createElement("a");
@@ -722,7 +738,34 @@ createApp({
         const reader = new FileReader();
         reader.onload = (e) => {
           try {
-            this.resumeData = JSON.parse(e.target.result);
+            const parsed = JSON.parse(e.target.result);
+            
+            if (parsed.resumeData) {
+              // New combined format
+              this.resumeData = parsed.resumeData;
+              if (parsed.sectionTitles) this.sectionTitles = Object.assign({}, this.sectionTitles, parsed.sectionTitles);
+              if (parsed.sectionVisibility) this.sectionVisibility = Object.assign({}, this.sectionVisibility, parsed.sectionVisibility);
+              if (parsed.sectionOrder) {
+                const missing = this.sectionOrder.filter(id => !parsed.sectionOrder.includes(id));
+                this.sectionOrder = [...parsed.sectionOrder, ...missing];
+              }
+            } else {
+              // Legacy format (just resumeData)
+              this.resumeData = parsed;
+            }
+            
+            // Re-run standard migrations on the imported data
+            const langs = this.resumeData.skills?.languages;
+            if (Array.isArray(langs)) {
+              this.resumeData.skills.languages = {
+                en: langs.map((l) => ({ name: typeof l.name === "object" ? l.name.en : l.name })),
+                nl: langs.map((l) => ({ name: typeof l.name === "object" ? l.name.nl : l.name })),
+              };
+            }
+            if (!Array.isArray(this.resumeData.references)) {
+              this.resumeData.references = [];
+            }
+            
             this.saveToLocalStorage();
             alert("Resume data imported successfully!");
           } catch (error) {
@@ -827,6 +870,7 @@ createApp({
   },
   mounted() {
     this.loadFromLocalStorage();
+    window.addEventListener("beforeunload", this.saveToLocalStorage);
     this._keyHandler = (e) => {
       if (!this.editMode) return;
       const ctrl = e.ctrlKey || e.metaKey;
@@ -841,6 +885,7 @@ createApp({
     document.addEventListener("keydown", this._keyHandler);
   },
   unmounted() {
+    window.removeEventListener("beforeunload", this.saveToLocalStorage);
     document.removeEventListener("keydown", this._keyHandler);
   },
 }).mount("#app");
