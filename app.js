@@ -6,6 +6,7 @@ createApp({
       editMode: false,
       currentLang: localStorage.getItem("currentLang") || "nl",
       resumeData: {
+        settings: { sectionSpacing: 1.0 },
         personalInfo: {
           name: "Alireza Amani",
           email: "alireza.amani101@gmail.com",
@@ -211,9 +212,10 @@ createApp({
             name: "Flash Card 2.0",
             url: "https://github.com/Alireza-Amani/flash_denken",
             description: {
-              en: "Full-stack application leveraging the Gemini API to implement cognitive-science-driven spaced repetition workflows.",
-              nl: "Full-stack applicatie die de Gemini API gebruikt voor cognitieve-wetenschap-gedreven spaced repetition workflows.",
+              en: "Full-stack application leveraging the Gemini API to implement cognitive-science-driven spaced repetition workflows; helped me reach B2 Dutch proficiency in one year.",
+              nl: "Full-stack applicatie die de Gemini API gebruikt voor cognitieve-wetenschap-gedreven spaced repetition workflows; hielp mij in één jaar niveau B2 in het Nederlands te bereiken.",
             },
+            readMoreUrl: "https://alireza-amani.github.io/project-stories/flash-denken.html",
           },
         ],
         education: [
@@ -526,6 +528,30 @@ createApp({
         }
         this.resumeData = parsed;
         
+        // Ensure settings are initialized
+        if (!this.resumeData.settings) {
+          this.resumeData.settings = { sectionSpacing: 1.0 };
+        } else if (!this.resumeData.settings.sectionSpacing) {
+          this.resumeData.settings.sectionSpacing = 1.0;
+        }
+
+        // Ensure readMoreUrl and updated description are present in repositories
+        if (this.resumeData.repositories) {
+          this.resumeData.repositories.forEach((repo) => {
+            if (repo.name && repo.name.toLowerCase().includes("flash card")) {
+              if (!repo.readMoreUrl) {
+                repo.readMoreUrl = "https://alireza-amani.github.io/project-stories/flash-denken.html";
+              }
+              const defaultRepo = defaultData.repositories.find(r => r.name.toLowerCase().includes("flash card"));
+              if (defaultRepo && (!repo.description || !repo.description.en || !repo.description.en.includes("B2"))) {
+                repo.description = defaultRepo.description;
+              }
+            } else if (repo.readMoreUrl === undefined) {
+              repo.readMoreUrl = "";
+            }
+          });
+        }
+        
         // Migrate old languages array format
         const langs = this.resumeData.skills?.languages;
         if (Array.isArray(langs)) {
@@ -768,6 +794,7 @@ createApp({
           en: "Description in English",
           nl: "Beschrijving in het Nederlands",
         },
+        readMoreUrl: "",
       });
     },
     removeRepository(index) {

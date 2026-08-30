@@ -14,7 +14,7 @@
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
   </head>
   <body>
-    <div id="app">
+    <div id="app" :style="{ '--section-spacing': resumeData.settings.sectionSpacing + 'rem' }">
       <!-- Edit Mode Controls -->
       <div class="edit-controls" v-if="!editMode">
         <button @click="toggleEditMode" class="edit-toggle-btn" title="Enable edit mode">
@@ -44,6 +44,11 @@
           <button @click="resetData" class="btn-danger" title="Reset to default data">
             🔄 Reset to Default
           </button>
+        </div>
+        <div class="edit-controls-settings" style="margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(0,0,0,0.1); display: flex; align-items: center; gap: 10px;">
+          <label for="spacingSlider" style="font-size: 0.9rem; font-weight: 600; color: #334155;">Section Spacing:</label>
+          <input type="range" id="spacingSlider" v-model.number="resumeData.settings.sectionSpacing" min="0.5" max="3" step="0.1" title="Adjust spacing between sections">
+          <span style="font-size: 0.85rem; color: #64748b; min-width: 3rem;">{{ resumeData.settings.sectionSpacing }}rem</span>
         </div>
       </div>
 
@@ -308,10 +313,23 @@
                 <input type="text" v-model="repo.name" class="edit-input edit-input-inline" placeholder="Repository Name" style="min-width: 200px;">
               </span>:
             </strong>
-            <span v-if="!editMode">{{ repo.description[currentLang] }}</span>
+            <div v-if="!editMode">
+              <span>{{ repo.description[currentLang] }}</span>
+              <div class="project-footer" style="padding-left: 0; margin-top: 0.25rem" v-if="repo.readMoreUrl">
+                <a :href="repo.readMoreUrl" class="ext-link" target="_blank" rel="noopener noreferrer">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="contact-icon">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="2" y1="12" x2="22" y2="12"></line>
+                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                  </svg>
+                  Read more
+                </a>
+              </div>
+            </div>
             <div v-else style="display: inline-block; width: 100%;">
               <input type="text" v-model="repo.url" class="edit-input" placeholder="https://github.com/username/repo" style="margin-top: 0.3rem;">
               <input type="text" v-model="repo.description[currentLang]" class="edit-input" placeholder="Description" style="margin-top: 0.3rem;">
+              <input type="text" v-model="repo.readMoreUrl" class="edit-input" placeholder="Read More URL (optional)" style="margin-top: 0.3rem;">
             </div>
             <button v-if="editMode" @click="removeRepository(repoIndex)" class="btn-remove">Remove</button>
           </li>
