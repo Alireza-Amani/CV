@@ -74,14 +74,14 @@
         </div>
         <div class="contact-info">
           <div>
-            <a :href="'mailto:' + resumeData.personalInfo.email">
+            <span>
               <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="contact-icon">
                 <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
                 <rect width="20" height="16" x="2" y="4" rx="2"></rect>
               </svg>
               <span v-if="!editMode">{{ resumeData.personalInfo.email }}</span>
               <input v-else type="email" v-model="resumeData.personalInfo.email" class="edit-input edit-input-small" placeholder="email@example.com">
-            </a>
+            </span>
             <span class="separator">|</span>
             <a :href="resumeData.personalInfo.websiteUrl" class="ext-link" target="_blank" rel="noopener noreferrer">
               <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="contact-icon">
@@ -419,59 +419,46 @@
       </div>
         </template>
 
-        <!-- Publications Section -->
-        <template v-if="sectionId === 'publications'">
+        <!-- Peer-Reviewed Journal Articles Section -->
+        <template v-if="sectionId === 'journalArticles'">
           <h2 v-if="!editMode">{{ getSectionTitle(sectionId) }}</h2>
-      <div class="project">
-        <ul class="pub-list">
-          <li v-for="(pub, pubIndex) in resumeData.publications" :key="'pub-' + pubIndex" class="pub-item">
-            <div class="editable-section-header" v-if="editMode" style="margin-bottom: 0.5rem;">
-              <div class="move-buttons">
-                <button @click="movePublication(pubIndex, 'up')" :disabled="pubIndex === 0" class="btn-move" title="Move up">↑</button>
-                <button @click="movePublication(pubIndex, 'down')" :disabled="pubIndex === resumeData.publications.length - 1" class="btn-move" title="Move down">↓</button>
-              </div>
-              <button @click="removePublication(pubIndex)" class="btn-remove-section">🗑️ Remove</button>
-            </div>
-
-            <span class="pub-title" v-if="!editMode">{{ pub.title }}</span>
-            <input v-else type="text" v-model="pub.title" class="edit-input" placeholder="Publication Title">
-
-            <span class="pub-meta">
-              <span v-if="!editMode">{{ pub.authors }}</span>
-              <input v-else type="text" v-model="pub.authors" class="edit-input" placeholder="Authors">
-              <span class="separator">|</span>
-              <span class="pub-journal" v-if="!editMode">{{ pub.journal }}</span>
-              <input v-else type="text" v-model="pub.journal" class="edit-input edit-input-inline" placeholder="Journal">
-            </span>
-
-            <div class="project-footer" style="padding-left: 0; margin-top: 0.25rem" v-if="pub.links && pub.links.length > 0">
-              <template v-for="(link, linkIndex) in pub.links" :key="'pub-link-' + linkIndex">
-                <a :href="link.url" class="ext-link" target="_blank" rel="noopener noreferrer" v-if="!editMode">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="contact-icon">
-                    <template v-for="(element, elemIndex) in getIcon(link.icon)" :key="elemIndex">
-                      <path v-if="element.type === 'path'" :d="element.d"></path>
-                      <ellipse v-else-if="element.type === 'ellipse'" :cx="element.cx" :cy="element.cy" :rx="element.rx" :ry="element.ry"></ellipse>
-                      <circle v-else-if="element.type === 'circle'" :cx="element.cx" :cy="element.cy" :r="element.r"></circle>
-                      <line v-else-if="element.type === 'line'" :x1="element.x1" :y1="element.y1" :x2="element.x2" :y2="element.y2"></line>
-                      <polyline v-else-if="element.type === 'polyline'" :points="element.points"></polyline>
-                    </template>
-                  </svg>
-                  {{ link.text }}
-                </a>
-                <div v-else style="display: inline-block; margin-right: 0.5rem; margin-bottom: 0.3rem;">
-                  <input type="text" v-model="link.text" class="edit-input edit-input-inline" placeholder="Link Text" style="width: 120px;">
-                  <input type="text" v-model="link.url" class="edit-input edit-input-inline" placeholder="https://..." style="width: 250px;">
-                  <button @click="removePublicationLink(pub, linkIndex)" class="btn-remove-inline">×</button>
+          <div class="project">
+            <ul class="bib-list">
+              <li v-for="(article, articleIndex) in resumeData.journalArticles" :key="'journal-' + articleIndex">
+                <div class="editable-section-header" v-if="editMode" style="margin-bottom: 0.5rem;">
+                  <div class="move-buttons">
+                    <button @click="moveJournalArticle(articleIndex, 'up')" :disabled="articleIndex === 0" class="btn-move" title="Move up">↑</button>
+                    <button @click="moveJournalArticle(articleIndex, 'down')" :disabled="articleIndex === resumeData.journalArticles.length - 1" class="btn-move" title="Move down">↓</button>
+                  </div>
+                  <button @click="removeJournalArticle(articleIndex)" class="btn-remove-section">🗑️ Remove</button>
                 </div>
-                <span v-if="!editMode && linkIndex < pub.links.length - 1" class="separator">|</span>
-              </template>
-              <button v-if="editMode" @click="addPublicationLink(pub)" class="btn-add-inline">+ Link</button>
-            </div>
-            <button v-if="editMode && (!pub.links || pub.links.length === 0)" @click="addPublicationLink(pub)" class="btn-add" style="margin-top: 0.5rem;">+ Add Link</button>
-          </li>
-        </ul>
-        <button v-if="editMode" @click="addPublication" class="btn-add-section">+ Add Publication</button>
-      </div>
+                <div v-if="!editMode" v-html="article.text[currentLang]"></div>
+                <textarea v-else v-model="article.text[currentLang]" class="edit-textarea" rows="3" placeholder="Enter citation HTML..."></textarea>
+              </li>
+            </ul>
+            <button v-if="editMode" @click="addJournalArticle" class="btn-add-section">+ Add Journal Article</button>
+          </div>
+        </template>
+
+        <!-- Conference Presentations & Abstracts Section -->
+        <template v-if="sectionId === 'conferencePresentations'">
+          <h2 v-if="!editMode">{{ getSectionTitle(sectionId) }}</h2>
+          <div class="project">
+            <ul class="bib-list">
+              <li v-for="(presentation, presIndex) in resumeData.conferencePresentations" :key="'conf-' + presIndex">
+                <div class="editable-section-header" v-if="editMode" style="margin-bottom: 0.5rem;">
+                  <div class="move-buttons">
+                    <button @click="moveConferencePresentation(presIndex, 'up')" :disabled="presIndex === 0" class="btn-move" title="Move up">↑</button>
+                    <button @click="moveConferencePresentation(presIndex, 'down')" :disabled="presIndex === resumeData.conferencePresentations.length - 1" class="btn-move" title="Move down">↓</button>
+                  </div>
+                  <button @click="removeConferencePresentation(presIndex)" class="btn-remove-section">🗑️ Remove</button>
+                </div>
+                <div v-if="!editMode" v-html="presentation.text[currentLang]"></div>
+                <textarea v-else v-model="presentation.text[currentLang]" class="edit-textarea" rows="3" placeholder="Enter citation HTML..."></textarea>
+              </li>
+            </ul>
+            <button v-if="editMode" @click="addConferencePresentation" class="btn-add-section">+ Add Conference Presentation</button>
+          </div>
         </template>
 
         <!-- References Section -->
@@ -504,10 +491,10 @@
               <input v-else type="text" v-model="ref.company" class="edit-input" placeholder="Company / Institution">
 
               <!-- Email -->
-              <a v-if="!editMode && ref.email" :href="'mailto:' + ref.email" class="ref-contact">
+              <span v-if="!editMode && ref.email" class="ref-contact">
                 <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="contact-icon"><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path><rect width="20" height="16" x="2" y="4" rx="2"></rect></svg>
                 {{ ref.email }}
-              </a>
+              </span>
               <input v-else-if="editMode" type="email" v-model="ref.email" class="edit-input" placeholder="email@example.com">
 
               <!-- Phone -->

@@ -230,6 +230,21 @@ h2 {
   font-weight: bold;
 }
 
+/* Bibliographic list with hanging indents */
+.bib-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.bib-list li {
+  margin-bottom: 0.5rem;
+  padding-left: 1.5em;
+  text-indent: -1.5em;
+  position: relative;
+  line-height: 1.4;
+}
+
 .ext-link {
   font-size: 8.5pt;
   font-weight: normal;
@@ -954,13 +969,18 @@ h2 {
 }
 
 .ref-contact {
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
+  display: block;
   font-size: 8pt;
   color: var(--text-muted);
   text-decoration: none;
   margin-top: 0.15rem;
+  word-break: break-all;
+}
+
+.ref-contact svg {
+  vertical-align: middle;
+  margin-right: 0.25rem;
+  margin-bottom: 2px;
 }
 
 .ref-contact:hover {

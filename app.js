@@ -315,75 +315,38 @@ createApp({
             phone: "",
           },
         ],
-        publications: [
+        journalArticles: [
           {
-            title:
-              "Cold climates, complex hydrology: can a land surface model accurately simulate deep percolation?",
-            authors:
-              "Amani, A., Boucher, M.-A., Cabral, A. R., Vionnet, V., and Gaborit, É. (2025)",
-            journal: "Hydrology and Earth System Sciences",
-            links: [
-              {
-                text: "View Publication",
-                url: "https://doi.org/10.5194/hess-29-2445-2025",
-                icon: "external",
-              },
-            ],
+            text: {
+              en: "<strong>Amani, A.</strong>, Boucher, M.-A., Cabral, A. R., Vionnet, V., & Gaborit, É. (2025). Cold climates, complex hydrology: can a land surface model accurately simulate deep percolation? <em>Hydrology and Earth System Sciences</em>, <a href=\"https://doi.org/10.5194/hess-29-2445-2025\" class=\"inline-link\" target=\"_blank\" rel=\"noopener noreferrer\">https://doi.org/10.5194/hess-29-2445-2025</a>.",
+              nl: "<strong>Amani, A.</strong>, Boucher, M.-A., Cabral, A. R., Vionnet, V., & Gaborit, É. (2025). Cold climates, complex hydrology: can a land surface model accurately simulate deep percolation? <em>Hydrology and Earth System Sciences</em>, <a href=\"https://doi.org/10.5194/hess-29-2445-2025\" class=\"inline-link\" target=\"_blank\" rel=\"noopener noreferrer\">https://doi.org/10.5194/hess-29-2445-2025</a>.",
+            },
           },
           {
-            title:
-              "Analysing Deep Percolation Dynamics: A Lysimeter-Based Study in a Cold Environment",
-            authors:
-              "Amani, A., Boucher, M.-A., Cabral, A. R., Vionnet, V., and Gaborit, É. (2025)",
-            journal: "Hydrological Processes",
-            links: [
-              {
-                text: "View Publication",
-                url: "https://onlinelibrary.wiley.com/doi/full/10.1002/hyp.70119",
-                icon: "external",
-              },
-            ],
+            text: {
+              en: "<strong>Amani, A.</strong>, Boucher, M.-A., Cabral, A. R., Vionnet, V., & Gaborit, É. (2025). Analysing Deep Percolation Dynamics: A Lysimeter-Based Study in a Cold Environment. <em>Hydrological Processes</em>, <a href=\"https://doi.org/10.1002/hyp.70119\" class=\"inline-link\" target=\"_blank\" rel=\"noopener noreferrer\">https://doi.org/10.1002/hyp.70119</a>.",
+              nl: "<strong>Amani, A.</strong>, Boucher, M.-A., Cabral, A. R., Vionnet, V., & Gaborit, É. (2025). Analysing Deep Percolation Dynamics: A Lysimeter-Based Study in a Cold Environment. <em>Hydrological Processes</em>, <a href=\"https://doi.org/10.1002/hyp.70119\" class=\"inline-link\" target=\"_blank\" rel=\"noopener noreferrer\">https://doi.org/10.1002/hyp.70119</a>.",
+            },
           },
           {
-            title:
-              "Comparing three machine learning algorithms with existing methods for natural streamflow estimation",
-            authors:
-              "Mehrvand, S., Boucher, M.-A., Kornelsen, K., and Amani, A. (2024)",
-            journal: "Hydrological Sciences Journal",
-            links: [
-              {
-                text: "View Publication",
-                url: "https://doi.org/10.1080/02626667.2023.2273402",
-                icon: "external",
-              },
-            ],
+            text: {
+              en: "Mehrvand, S., Boucher, M.-A., Kornelsen, K., & <strong>Amani, A.</strong> (2024). Comparing three machine learning algorithms with existing methods for natural streamflow estimation. <em>Hydrological Sciences Journal</em>, <a href=\"https://doi.org/10.1080/02626667.2023.2273402\" class=\"inline-link\" target=\"_blank\" rel=\"noopener noreferrer\">https://doi.org/10.1080/02626667.2023.2273402</a>.",
+              nl: "Mehrvand, S., Boucher, M.-A., Kornelsen, K., & <strong>Amani, A.</strong> (2024). Comparing three machine learning algorithms met existing methods for natural streamflow estimation. <em>Hydrological Sciences Journal</em>, <a href=\"https://doi.org/10.1080/02626667.2023.2273402\" class=\"inline-link\" target=\"_blank\" rel=\"noopener noreferrer\">https://doi.org/10.1080/02626667.2023.2273402</a>.",
+            },
           },
           {
-            title:
-              "Assessing the generalization power of three machine learning models and three evapotranspiration formulas using 143 FLUXNET towers data",
-            authors:
-              "Amani, A., Boucher, M.-A., Cabral, A. R., and Nadeau, D. F. (2022)",
-            journal: "EGU General Assembly 2022",
-            links: [
-              {
-                text: "View Presentation",
-                url: "https://meetingorganizer.copernicus.org/EGU22/EGU22-5580.html",
-                icon: "presentation",
-              },
-            ],
+            text: {
+              en: "<strong>Amani, A.</strong>, & Alizadeh, H. (2021). Solving hydropower unit commitment problem using a novel sequential mixed integer linear programming approach. <em>Water Resources Management</em>, <a href=\"https://doi.org/10.1007/s11269-021-02806-6\" class=\"inline-link\" target=\"_blank\" rel=\"noopener noreferrer\">https://doi.org/10.1007/s11269-021-02806-6</a>.",
+              nl: "<strong>Amani, A.</strong>, & Alizadeh, H. (2021). Solving hydropower unit commitment problem using a novel sequential mixed integer linear programming approach. <em>Water Resources Management</em>, <a href=\"https://doi.org/10.1007/s11269-021-02806-6\" class=\"inline-link\" target=\"_blank\" rel=\"noopener noreferrer\">https://doi.org/10.1007/s11269-021-02806-6</a>.",
+            },
           },
+        ],
+        conferencePresentations: [
           {
-            title:
-              "Solving hydropower unit commitment problem using a novel sequential mixed integer linear programming approach",
-            authors: "Amani, A., and Alizadeh, H. (2021)",
-            journal: "Water Resources Management",
-            links: [
-              {
-                text: "View Publication",
-                url: "https://www.researchgate.net/profile/Alireza-Amani-4/publication/351064069_Solving_Hydropower_Unit_Commitment_Problem_Using_a_Novel_Sequential_Mixed_Integer_Linear_Programming_Approach/links/67f6422f03b8d7280e2fa6e0/Solving-Hydropower-Unit-Commitment-Problem-Using-a-Novel-Sequential-Mixed-Integer-Linear-Programming-Approach.pdf",
-                icon: "external",
-              },
-            ],
+            text: {
+              en: "<strong>Amani, A.</strong>, Boucher, M.-A., Cabral, A. R., & Nadeau, D. F. (2022). Assessing the generalization power of three machine learning models and three evapotranspiration formulas using 143 FLUXNET towers data. <em>EGU General Assembly 2022</em>, <a href=\"https://doi.org/10.5194/egusphere-egu22-5580\" class=\"inline-link\" target=\"_blank\" rel=\"noopener noreferrer\">https://doi.org/10.5194/egusphere-egu22-5580</a>.",
+              nl: "<strong>Amani, A.</strong>, Boucher, M.-A., Cabral, A. R., & Nadeau, D. F. (2022). Assessing the generalization power of three machine learning models and three evapotranspiration formulas using 143 FLUXNET towers data. <em>EGU General Assembly 2022</em>, <a href=\"https://doi.org/10.5194/egusphere-egu22-5580\" class=\"inline-link\" target=\"_blank\" rel=\"noopener noreferrer\">https://doi.org/10.5194/egusphere-egu22-5580</a>.",
+            },
           },
         ],
       },
@@ -391,7 +354,8 @@ createApp({
         "profileSummary",
         "education",
         "experiences",
-        "publications",
+        "journalArticles",
+        "conferencePresentations",
         "repositories",
         "certifications",
         "projects",
@@ -406,7 +370,8 @@ createApp({
         repositories: { en: "Scientific Software & Open-Source Tools", nl: "Wetenschappelijke Software & Open-Source Tools" },
         education: { en: "Education", nl: "Opleiding" },
         certifications: { en: "Certifications", nl: "Certificeringen" },
-        publications: { en: "Publications & Presentations", nl: "Publicaties & Presentaties" },
+        journalArticles: { en: "Peer-Reviewed Journal Articles", nl: "Peer-Reviewed Tijdschriftartikelen" },
+        conferencePresentations: { en: "Conference Presentations & Abstracts", nl: "Conferentiepresentaties & Samenvattingen" },
         references: { en: "References", nl: "Referenties" },
       },
       sectionVisibility: {
@@ -417,7 +382,8 @@ createApp({
         repositories: true,
         education: true,
         certifications: true,
-        publications: true,
+        journalArticles: true,
+        conferencePresentations: true,
         references: true,
       },
       _undoStack: [],
@@ -570,7 +536,12 @@ createApp({
         this.sectionVisibility = Object.assign({}, this.sectionVisibility, parsed);
       }
       if (savedOrder) {
-        const parsed = JSON.parse(savedOrder);
+        let parsed = JSON.parse(savedOrder);
+        // Replace old publications section with new split sections
+        const pubIndex = parsed.indexOf("publications");
+        if (pubIndex !== -1) {
+          parsed.splice(pubIndex, 1, "journalArticles", "conferencePresentations");
+        }
         // Ensure any new sections in the codebase default order are appended
         const missing = this.sectionOrder.filter(id => !parsed.includes(id));
         this.sectionOrder = [...parsed, ...missing];
@@ -741,28 +712,25 @@ createApp({
     removeCertification(index) {
       this.resumeData.certifications.splice(index, 1);
     },
-    addPublication() {
-      this.resumeData.publications.push({
-        title: "Publication Title",
-        authors: "Authors",
-        journal: "Journal Name",
-        links: [],
+    addJournalArticle() {
+      this.resumeData.journalArticles.push({
+        text: { en: "Citation string here", nl: "Citatie hier" }
       });
     },
-    removePublication(index) {
-      if (confirm("Remove this publication?")) {
-        this.resumeData.publications.splice(index, 1);
+    removeJournalArticle(index) {
+      if (confirm("Remove this journal article?")) {
+        this.resumeData.journalArticles.splice(index, 1);
       }
     },
-    addPublicationLink(publication) {
-      publication.links.push({
-        text: "Link",
-        url: "https://example.com",
-        icon: "external",
+    addConferencePresentation() {
+      this.resumeData.conferencePresentations.push({
+        text: { en: "Citation string here", nl: "Citatie hier" }
       });
     },
-    removePublicationLink(publication, index) {
-      publication.links.splice(index, 1);
+    removeConferencePresentation(index) {
+      if (confirm("Remove this conference presentation?")) {
+        this.resumeData.conferencePresentations.splice(index, 1);
+      }
     },
     addReference() {
       this.resumeData.references.push({
@@ -897,13 +865,20 @@ createApp({
         this.resumeData.education[newIndex] = temp;
       }
     },
-    movePublication(index, direction) {
+    moveJournalArticle(index, direction) {
       const newIndex = direction === "up" ? index - 1 : index + 1;
-      if (newIndex >= 0 && newIndex < this.resumeData.publications.length) {
-        const temp = this.resumeData.publications[index];
-        this.resumeData.publications[index] =
-          this.resumeData.publications[newIndex];
-        this.resumeData.publications[newIndex] = temp;
+      if (newIndex >= 0 && newIndex < this.resumeData.journalArticles.length) {
+        const temp = this.resumeData.journalArticles[index];
+        this.resumeData.journalArticles[index] = this.resumeData.journalArticles[newIndex];
+        this.resumeData.journalArticles[newIndex] = temp;
+      }
+    },
+    moveConferencePresentation(index, direction) {
+      const newIndex = direction === "up" ? index - 1 : index + 1;
+      if (newIndex >= 0 && newIndex < this.resumeData.conferencePresentations.length) {
+        const temp = this.resumeData.conferencePresentations[index];
+        this.resumeData.conferencePresentations[index] = this.resumeData.conferencePresentations[newIndex];
+        this.resumeData.conferencePresentations[newIndex] = temp;
       }
     },
     moveSection(index, direction) {

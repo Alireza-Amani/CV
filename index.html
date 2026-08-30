@@ -73,14 +73,14 @@
         </div>
         <div class="contact-info">
           <div>
-            <a :href="'mailto:' + resumeData.personalInfo.email">
+            <span>
               <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="contact-icon">
                 <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
                 <rect width="20" height="16" x="2" y="4" rx="2"></rect>
               </svg>
               <span v-if="!editMode">{{ resumeData.personalInfo.email }}</span>
               <input v-else type="email" v-model="resumeData.personalInfo.email" class="edit-input edit-input-small" placeholder="email@example.com">
-            </a>
+            </span>
             <span class="separator">|</span>
             <a :href="resumeData.personalInfo.websiteUrl" class="ext-link" target="_blank" rel="noopener noreferrer">
               <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="contact-icon">
@@ -475,10 +475,10 @@
               <input v-else type="text" v-model="ref.company" class="edit-input" placeholder="Company / Institution">
 
               <!-- Email -->
-              <a v-if="!editMode && ref.email" :href="'mailto:' + ref.email" class="ref-contact">
+              <span v-if="!editMode && ref.email" class="ref-contact">
                 <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="contact-icon"><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path><rect width="20" height="16" x="2" y="4" rx="2"></rect></svg>
                 {{ ref.email }}
-              </a>
+              </span>
               <input v-else-if="editMode" type="email" v-model="ref.email" class="edit-input" placeholder="email@example.com">
 
               <!-- Phone -->
